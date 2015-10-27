@@ -21,7 +21,7 @@ module Tickergrid
             
             // Create an HTML string describing the table we're going to use as our grid
             var html = ''
-            html += '<table class="table-bordered">';            
+            html += '<table class="table table-condensed table-hover">';            
             html += '<tr>';
 
             // Create Table Heading
@@ -36,12 +36,12 @@ module Tickergrid
             // names as IDs so we can update them later
             for (var i = 0; i < companies.length; i++) {
                 html += '<tr id="'+companies[i].name+'">';
-                html += '<td>' + companies[i].name + '</td>';
-                html += '<td>' + companies[i].companyName + '</td>';
-                html += '<td>' + companies[i].price + '</td>';
-                html += '<td>' + companies[i].change + '</td>';
-                html += '<td>' + companies[i].changePerc + '</td>';
-                html += '<td>' + companies[i].mktCap + '</td>';
+                html += '<td width="10%">' + companies[i].name + '</td>';
+                html += '<td width="30%">' + companies[i].companyName + '</td>';
+                html += '<td width="15%">' + companies[i].price + '</td>';
+                html += '<td width="15%">' + companies[i].change + '</td>';
+                html += '<td width="15%">' + companies[i].changePerc + '</td>';
+                html += '<td width="15%">' + companies[i].mktCap + '</td>';
                 html += '</tr>';
             }
             html += '</table>';
@@ -68,7 +68,15 @@ module Tickergrid
             // Update the correct row with the new data
             var tablerow = document.getElementById(company.name);
             tablerow.innerHTML = row;
+            //tablerow.setAttribute('class', 'noclass');
 
+
+            //if (company.name == 'GOOG'){
+               // console.log (tablerow.getAttribute('class'));
+                //console.log ('updating ' + company.name + ' ' + company.tick);
+                // tablerow.setAttribute('class', company.tick);
+            //}
+            
             // Create the flare by adding a class (see css/style.css)
             tablerow.setAttribute('class', company.tick);
         }

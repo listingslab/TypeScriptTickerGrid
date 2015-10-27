@@ -87,14 +87,16 @@
 
 The code should be written in an OO style. Any CSS written should use BEM notation. Do not use any 3rd party frameworks or libraries.</p></b>
 
+        <p></p>
+
            
         </div>
         
         <div class="col-md-4">
           <div class="panel panel-default">
             <div class="panel-body fixed-panel">
-              <h3>1. Start the App</h3>
-              <p>Basic validation is done using the type="text" parameter in the input field which restricts the input to numbers only. Then we add a keyup event to run our program every time the value in the input changes and focus the cursor in the box.</p>
+              <h3>1. </h3>
+              <p></p>
             </div>
           </div>
         </div>
@@ -102,35 +104,18 @@ The code should be written in an OO style. Any CSS written should use BEM notati
         <div class="col-md-4">
           <div class="panel panel-default">
             <div class="panel-body">
-              <h3>2. Validate Input</h3>
-              <p>We do a quick validation of the number to make sure it's not too large or NaN (Not a number). If the number isn't valid we'll turn the input box red and display an error message. If the number is valid, we get to the core of the program.
-              </p>
+              <h3>2. CSS Animation</h3>
+              <p>Notification that an item has been updated via a visual flare in the UI. Is handledes by <a href="css/style.css" target="_blank">CSS</a>, offloading animation logic to the browser itself, which is efficient at.</p>
             </div>
         </div>
       </div>
   </div>
-      <div class="row">
 
-        <div class="col-md-8 col-md-offset-4">
-          <div class="panel panel-default">
-            <div class="panel-body fixed-panel">
-              <h3>3. Convert the number</h3>
-                <p>To convert the number to its spoken equivalent we first find out how many digits it has. This gives us an idea of it's size. If it's got 7 digits, then it is some millions. If it only has 3, then it is in the hundreds.</p>
-
-                <p>We can then carefully work our way through the number, splitting it into chunks which we can run through another process to return the word values and suffix them with the size of the chunks.</p>
-
-                <p>For instance if we have the number <em>13675</em>. We can tell from the fact it has 5 digits that it is some tens of thousands. We slice off and process the first two digits from the number which gives us <em>thirteen thousand</em>. We can then run the rest of the digits through the same process and proviving it isn't zero, we'll know to add the words <em>and six hundred and seventy five.</em></p>
-              
-            </div>
-          </div>
-        </div>
-
-    </div>
       
       <hr>
 
       <footer>
-        <p>&copy; listingslab</p>
+        <p>&copy; listingslab | <a href="http://jqueryresume.com/spokennumberify/">spokennumberify</a></p>
       </footer>
     </div> <!-- /container -->        
 

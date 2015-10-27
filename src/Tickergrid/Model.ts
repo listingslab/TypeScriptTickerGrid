@@ -12,6 +12,7 @@ module Tickergrid
         public _deltas: any;
         public _headers: any;
         private _currentDelta: number;
+        private _updates: number;
 
         constructor(main)
         {
@@ -20,6 +21,7 @@ module Tickergrid
         	this._deltas = [];
 			this._headers = {};
 			this._currentDelta = 0;
+			this._updates = 0;
 
 			// Initialise the model by loading the snapshot data
 			this.loadSnapshot();
@@ -84,67 +86,68 @@ module Tickergrid
 			// Add the deltas to our array 
 			this._deltas = res.split("\n");
 
-			// Wait for 1 second before kicking off the the delta engine
+			// Wait for 2 seconds before kicking off the the delta engine
 			var self = this;
 			setTimeout(function() {
 				self.deltaEngine();
-			}, 1000);
+			}, 2000);
 	    }
 
 
 	    deltaEngine (){
-			var done:boolean = false;
+	    	this._updates++
+	    	console.log (this._updates);
 			// Loop through the next chunk of delta lines 
 			for (var i = 0; i < this._companies.length; i++) {
 
-				// Make sure we haven't run out of data
-				if (this._deltas[this._currentDelta] != undefined && this._deltas[this._currentDelta] != '') {
-					var change:any = false;
-					var deltaData = this._deltas[this._currentDelta].split(",");
-					var oldPrice = this._companies[i].price;
-					var newPrice = deltaData[2];
-					if (newPrice != '') {
-						if (newPrice > oldPrice) {
-							change = 'up';
-						}else{
-							change = 'down';
-						}
+				// Make sure we haven't run out of deltas
+				var change:any = false;
+				var deltaData = this._deltas[this._currentDelta].split(",");
+				var oldPrice = this._companies[i].price;
+				var newPrice = deltaData[2];
+				if (newPrice != '') {
+					if (newPrice > oldPrice) {
+						change = 'up';
+					}else{
+						change = 'down';
 					}
-
-					// Does the delta should update the company object?
-					if (change){
-
-						// Update the object in the model
-						this._companies[i].price = deltaData[2];
-						this._companies[i].change = deltaData[3];
-						this._companies[i].changePerc = deltaData[4];
-						this._companies[i].tick = change;
-
-						// Propagate the change to the view
-						this._main._view.updateCompany(this._companies[i]);
-					}
-
-					// Keep track of where we are in the delta list
-					this._currentDelta++;
-				}else{
-					done = true;
 				}
+
+				// Does the delta should update the company object?
+				if (change){
+
+					// Update the object in the model
+					this._companies[i].price = deltaData[2];
+					this._companies[i].change = deltaData[3];
+					this._companies[i].changePerc = deltaData[4];
+					this._companies[i].tick = change;
+
+					// Propagate the change to the view
+					this._main._view.updateCompany(this._companies[i]);
+				}
+
+				// Keep track of where we are in the delta list
+				this._currentDelta++;
 			
 			}
-			// Check to see if the next line contains a number
-			if (!done) {
-				var wait: number = this._deltas[this._currentDelta];
-				this._currentDelta++;
-				var self = this;
-				setTimeout(function() {
-					self.deltaEngine();
-				}, wait);
+				
+			// Get the time to wait before next update
+			var wait: number = this._deltas[this._currentDelta];
 
+			// Check if we're at the end of file
+			
+			if (this._deltas[this._currentDelta+1] == ''){
+				console.log ('Go back to beginning');
+				this._currentDelta = 0;
 			}else{
-
-				// We've reached the end of the delta file. Goodbye.
-				console.log ('Thank you & goodbye');
+				this._currentDelta++;
 			}
+			
+			var self = this;
+			setTimeout(function() {
+				self.deltaEngine();
+			}, wait);
+
 		
 	    }
 

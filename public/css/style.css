@@ -1,10 +1,4 @@
-﻿#tickergrid table {
-  width: 98%;
-  margin:auto;
-  margin-top:15px;
-}
-
-@-webkit-keyframes tickUp {
+﻿@-webkit-keyframes tickUp {
   0%   { 
   	background-color: #505d6b; 
   }
@@ -50,10 +44,10 @@
 }
 .up{    
     background-image:none !important;
-    -webkit-animation: tickUp 1.25s ease-in-out; 
-       -moz-animation: tickUp 1.25s ease-in-out; 
-         -o-animation: tickUp 1.25s ease-in-out; 
-            animation: tickUp 1.25s ease-in-out; 
+    -webkit-animation: tickUp 0.5s ease-in-out; 
+       -moz-animation: tickUp 0.5s ease-in-out; 
+         -o-animation: tickUp 0.5s ease-in-out; 
+            animation: tickUp 0.5s ease-in-out; 
 }
 
 
@@ -103,8 +97,14 @@
 }
 .down{    
     background-image:none !important;
-    -webkit-animation: tickDown 1.25s ease-in-out; 
-       -moz-animation: tickDown 1.25s ease-in-out; 
-         -o-animation: tickDown 1.25s ease-in-out; 
-            animation: tickDown 1.25s ease-in-out; 
+    -webkit-animation: tickDown 0.5s ease-in-out; 
+       -moz-animation: tickDown 0.5s ease-in-out; 
+         -o-animation: tickDown 0.5s ease-in-out; 
+            animation: tickDown 0.5s ease-in-out; 
 }
+
+#tickergrid table {
+  max-width: 650px;
+  margin:15px;
+}
+

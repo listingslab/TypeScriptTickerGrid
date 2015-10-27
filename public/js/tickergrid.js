@@ -8,6 +8,7 @@ var Tickergrid;
             this._deltas = [];
             this._headers = {};
             this._currentDelta = 0;
+            this._updates = 0;
             this.loadSnapshot();
         }
         Model.prototype.loadSnapshot = function () {
@@ -50,48 +51,45 @@ var Tickergrid;
             var self = this;
             setTimeout(function () {
                 self.deltaEngine();
-            }, 1000);
+            }, 2000);
         };
         Model.prototype.deltaEngine = function () {
-            var done = false;
+            this._updates++;
+            console.log(this._updates);
             for (var i = 0; i < this._companies.length; i++) {
-                if (this._deltas[this._currentDelta] != undefined && this._deltas[this._currentDelta] != '') {
-                    var change = false;
-                    var deltaData = this._deltas[this._currentDelta].split(",");
-                    var oldPrice = this._companies[i].price;
-                    var newPrice = deltaData[2];
-                    if (newPrice != '') {
-                        if (newPrice > oldPrice) {
-                            change = 'up';
-                        }
-                        else {
-                            change = 'down';
-                        }
+                var change = false;
+                var deltaData = this._deltas[this._currentDelta].split(",");
+                var oldPrice = this._companies[i].price;
+                var newPrice = deltaData[2];
+                if (newPrice != '') {
+                    if (newPrice > oldPrice) {
+                        change = 'up';
                     }
-                    if (change) {
-                        this._companies[i].price = deltaData[2];
-                        this._companies[i].change = deltaData[3];
-                        this._companies[i].changePerc = deltaData[4];
-                        this._companies[i].tick = change;
-                        this._main._view.updateCompany(this._companies[i]);
+                    else {
+                        change = 'down';
                     }
-                    this._currentDelta++;
                 }
-                else {
-                    done = true;
+                if (change) {
+                    this._companies[i].price = deltaData[2];
+                    this._companies[i].change = deltaData[3];
+                    this._companies[i].changePerc = deltaData[4];
+                    this._companies[i].tick = change;
+                    this._main._view.updateCompany(this._companies[i]);
                 }
-            }
-            if (!done) {
-                var wait = this._deltas[this._currentDelta];
                 this._currentDelta++;
-                var self = this;
-                setTimeout(function () {
-                    self.deltaEngine();
-                }, wait);
+            }
+            var wait = this._deltas[this._currentDelta];
+            if (this._deltas[this._currentDelta + 1] == '') {
+                console.log('Go back to beginning');
+                this._currentDelta = 0;
             }
             else {
-                console.log('Thank you & goodbye');
+                this._currentDelta++;
             }
+            var self = this;
+            setTimeout(function () {
+                self.deltaEngine();
+            }, wait);
         };
         return Model;
     })();
@@ -108,7 +106,7 @@ var Tickergrid;
             var headers = this._main._model._headers;
             var companies = this._main._model._companies;
             var html = '';
-            html += '<table class="table-bordered">';
+            html += '<table class="table table-condensed table-hover">';
             html += '<tr>';
             for (var i = 0; i < headers.length; i++) {
                 html += '<th>';
@@ -118,12 +116,12 @@ var Tickergrid;
             html += '</tr>';
             for (var i = 0; i < companies.length; i++) {
                 html += '<tr id="' + companies[i].name + '">';
-                html += '<td>' + companies[i].name + '</td>';
-                html += '<td>' + companies[i].companyName + '</td>';
-                html += '<td>' + companies[i].price + '</td>';
-                html += '<td>' + companies[i].change + '</td>';
-                html += '<td>' + companies[i].changePerc + '</td>';
-                html += '<td>' + companies[i].mktCap + '</td>';
+                html += '<td width="10%">' + companies[i].name + '</td>';
+                html += '<td width="30%">' + companies[i].companyName + '</td>';
+                html += '<td width="15%">' + companies[i].price + '</td>';
+                html += '<td width="15%">' + companies[i].change + '</td>';
+                html += '<td width="15%">' + companies[i].changePerc + '</td>';
+                html += '<td width="15%">' + companies[i].mktCap + '</td>';
                 html += '</tr>';
             }
             html += '</table>';
