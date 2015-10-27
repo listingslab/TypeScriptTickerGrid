@@ -13,7 +13,7 @@
     "Grunt",
     "listingslab"
   ],
-  "author": "Chris Dorward",
+  "author": "Chris Dorward <listingslab@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "grunt": "^0.4.5",

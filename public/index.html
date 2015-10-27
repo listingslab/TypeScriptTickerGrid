@@ -1,21 +1,137 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tickergrid</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="js/tickergrid.js"></script>
-    <script type="text/javascript">
-        window.onload = function(event) {
-            //Get class from namespace
-            var Main = Tickergrid.Main;
-            var app = new Main();
-            
-        }
-    </script>
-</head>
-<body>
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>TypeScript TickerGrid</title>
+
+        <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 40px;
+                padding-bottom: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/bootstrap/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <img class="listingslab" src="img/listingslab.png" />
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+          <a class="github btn btn-primary btn-xs pull-right glyphicon glyphicon-download-alt navbar-btn" href="https://github.com/listingslab/TypeScriptTickerGrid/archive/master.zip" target="_blank"> Download</a>
+
+          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/spokenNumberify/blob/master/src/createWords.js" target="_blank" role="button"> createWords.js</a>
+
+          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/spokenNumberify/blob/master/src/convertNumber.js" target="_blank" role="button">convertNumber.js</a>
+
+          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/spokenNumberify/blob/master/src/validate.js" target="_blank" role="button">validate.js</a>
+
+          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/spokenNumberify/blob/master/src/main.js" target="_blank" role="button">main.ts</a>
+
+          
+
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>TypeScript TickerGrid</h1>
+        
+        <div class="form-group" id="inputForm">
+          
+          <input type="number" class="form-control" id="inputNumber">
+          <h4><div id="output">Please enter a whole number between 0 and 999999999999</div></h4>
+        </div>
+
+      </div>
+    </div>
     
-    <div id="tickergrid"></div>
-    
-</body>
+    <div class="container">
+      <!-- Example row of columns -->
+      
+
+      <div class="row">
+        
+        <div class="col-md-4">
+          <h2>The Task</h2>
+          <b><p>Create an App that takes a number [0 - 999,999,999,999] and converts it into its spoken equivalent. For example, 167 would convert to "one hundred and sixty seven".</p></b>
+
+           
+        </div>
+        
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-body fixed-panel">
+              <h3>1. Start the App</h3>
+              <p>Basic validation is done using the type="text" parameter in the input field which restricts the input to numbers only. Then we add a keyup event to run our program every time the value in the input changes and focus the cursor in the box.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h3>2. Validate Input</h3>
+              <p>We do a quick validation of the number to make sure it's not too large or NaN (Not a number). If the number isn't valid we'll turn the input box red and display an error message. If the number is valid, we get to the core of the program.
+              </p>
+            </div>
+        </div>
+      </div>
+  </div>
+      <div class="row">
+
+        <div class="col-md-8 col-md-offset-4">
+          <div class="panel panel-default">
+            <div class="panel-body fixed-panel">
+              <h3>3. Convert the number</h3>
+                <p>To convert the number to its spoken equivalent we first find out how many digits it has. This gives us an idea of it's size. If it's got 7 digits, then it is some millions. If it only has 3, then it is in the hundreds.</p>
+
+                <p>We can then carefully work our way through the number, splitting it into chunks which we can run through another process to return the word values and suffix them with the size of the chunks.</p>
+
+                <p>For instance if we have the number <em>13675</em>. We can tell from the fact it has 5 digits that it is some tens of thousands. We slice off and process the first two digits from the number which gives us <em>thirteen thousand</em>. We can then run the rest of the digits through the same process and proviving it isn't zero, we'll know to add the words <em>and six hundred and seventy five.</em></p>
+              
+            </div>
+          </div>
+        </div>
+
+    </div>
+      
+      <hr>
+
+      <footer>
+        <p>&copy; listingslab</p>
+      </footer>
+    </div> <!-- /container -->        
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+        <script src="js/vendor/bootstrap.min.js"></script>
+    </body>
 </html>
