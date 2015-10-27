@@ -1,0 +1,128 @@
+﻿@-webkit-keyframes tickUp {
+  0%   { 
+  	background-color: #FFFFFF; 
+  	color:black;
+  }
+  50%  { 
+  	background-color: blue; 
+  	color:white;
+  }
+  100% { 
+  	background-color: #FFFFFF;
+  	color:black;
+  }
+}
+@-moz-keyframes tickUp {
+  0%   { 
+  	background-color: #FFFFFF;
+  	color:black; 
+  }
+  50%  { 
+  	background-color: blue; 
+  	color:white;
+  }
+  100% { 
+  	background-color: #FFFFFF;
+  	color:black;
+  }
+}
+@-o-keyframes tickUp {
+  0%   { 
+  	background-color: #FFFFFF;
+  	color:black; 
+  }
+  50%  { 
+  	background-color: blue; 
+  	color:white;
+  }
+  100% { 
+  	background-color: #FFFFFF; 
+  	color:black;
+  }
+}
+@keyframes tickUp {
+  0%   { 
+  	background-color: #FFFFFF; 
+  	color:black;
+  }
+  50%  { 
+  	background-color: blue; 
+  	color:white;
+  }
+  100% { 
+  	background-color: #FFFFFF; 
+  	color:black;
+  }
+}
+.up{    
+    background-image:none !important;
+    -webkit-animation: tickUp 1.25s ease-in-out; 
+       -moz-animation: tickUp 1.25s ease-in-out; 
+         -o-animation: tickUp 1.25s ease-in-out; 
+            animation: tickUp 1.25s ease-in-out; 
+}
+
+
+@-webkit-keyframes tickDown {
+  0%   { 
+  	background-color: #FFFFFF; 
+  	color:black;
+  }
+  50%  { 
+  	background-color: red; 
+  	color:white;
+  }
+  100% { 
+  	background-color: #FFFFFF;
+  	color:black;
+  }
+}
+@-moz-keyframes tickDown {
+  0%   { 
+  	background-color: #FFFFFF;
+  	color:black; 
+  }
+  50%  { 
+  	background-color: red; 
+  	color:white;
+  }
+  100% { 
+  	background-color: #FFFFFF;
+  	color:black;
+  }
+}
+@-o-keyframes tickDown {
+  0%   { 
+  	background-color: #FFFFFF;
+  	color:black; 
+  }
+  50%  { 
+  	background-color: red; 
+  	color:white;
+  }
+  100% { 
+  	background-color: #FFFFFF; 
+  	color:black;
+  }
+}
+@keyframes tickDown {
+  0%   { 
+  	background-color: #FFFFFF; 
+  	color:black;
+  }
+  50%  { 
+  	background-color: red; 
+  	color:white;
+  }
+  100% { 
+  	background-color: #FFFFFF; 
+  	color:black;
+  }
+}
+.down{    
+    background-image:none !important;
+    -webkit-animation: tickDown 1.25s ease-in-out; 
+       -moz-animation: tickDown 1.25s ease-in-out; 
+         -o-animation: tickDown 1.25s ease-in-out; 
+            animation: tickDown 1.25s ease-in-out; 
+}
