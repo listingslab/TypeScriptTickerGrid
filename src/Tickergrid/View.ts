@@ -35,7 +35,7 @@ module Tickergrid
             // Create rows for wach of our companies and reference them with thier 
             // names as IDs so we can update them later
             for (var i = 0; i < companies.length; i++) {
-                html += '<tr id="'+companies[i].name+'">';
+                html += '<tr id="' + companies[i].name + '">';
                 html += '<td width="10%">' + companies[i].name + '</td>';
                 html += '<td width="30%">' + companies[i].companyName + '</td>';
                 html += '<td width="15%">' + companies[i].price + '</td>';
@@ -54,31 +54,53 @@ module Tickergrid
 
         updateCompany (company:ICompany){
             
-            // Takes a company object and creates a new HTML row string
-            var row = '';
-            row += '<tr id="' + company.name + '">';
-            row += '<td>' + company.name + '</td>';
-            row += '<td>' + company.companyName + '</td>';
-            row += '<td>' + company.price + '</td>';
-            row += '<td>' + company.change + '</td>';
-            row += '<td>' + company.changePerc + '</td>';
-            row += '<td>' + company.mktCap + '</td>';
-            row += '</tr>';
+            // Takes a company object and creates a new HTML row element
+            // and replaces the old one, adding the animation class
 
-            // Update the correct row with the new data
-            var tablerow = document.getElementById(company.name);
-            tablerow.innerHTML = row;
-            //tablerow.setAttribute('class', 'noclass');
+            var oldRow = document.getElementById(company.name);
 
+            var newRow = document.createElement('tr');
+            newRow.setAttribute ('id', company.name);
+            newRow.setAttribute('class', company.tick);
 
-            //if (company.name == 'GOOG'){
-               // console.log (tablerow.getAttribute('class'));
-                //console.log ('updating ' + company.name + ' ' + company.tick);
-                // tablerow.setAttribute('class', company.tick);
-            //}
+            var td = document.createElement('td');
+            td.setAttribute('width', '10%');
+            newRow.appendChild (td);
+            var txt = document.createTextNode(company.name);
+            td.appendChild (txt);
+
+            td = document.createElement('td');
+            td.setAttribute('width', '30%');
+            newRow.appendChild (td);
+            txt = document.createTextNode(company.companyName);
+            td.appendChild (txt);
+
+            td = document.createElement('td');
+            td.setAttribute('width', '15%');
+            newRow.appendChild (td);
+            txt = document.createTextNode(company.price.toString());
+            td.appendChild (txt);
+
+            td = document.createElement('td');
+            td.setAttribute('width', '15%');
+            newRow.appendChild (td);
+            txt = document.createTextNode(company.change.toString());
+            td.appendChild (txt);
+
+            td = document.createElement('td');
+            td.setAttribute('width', '15%');
+            newRow.appendChild (td);
+            txt = document.createTextNode(company.changePerc.toString());
+            td.appendChild (txt);
+
+            td = document.createElement('td');
+            td.setAttribute('width', '15%');
+            newRow.appendChild (td);
+            txt = document.createTextNode(company.mktCap);
+            td.appendChild (txt);
             
-            // Create the flare by adding a class (see css/style.css)
-            tablerow.setAttribute('class', company.tick);
+            var replacedNode = oldRow.parentNode.replaceChild(newRow, oldRow);
+                
         }
     }
 }

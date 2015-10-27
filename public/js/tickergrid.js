@@ -8,7 +8,6 @@ var Tickergrid;
             this._deltas = [];
             this._headers = {};
             this._currentDelta = 0;
-            this._updates = 0;
             this.loadSnapshot();
         }
         Model.prototype.loadSnapshot = function () {
@@ -54,8 +53,6 @@ var Tickergrid;
             }, 2000);
         };
         Model.prototype.deltaEngine = function () {
-            this._updates++;
-            console.log(this._updates);
             for (var i = 0; i < this._companies.length; i++) {
                 var change = false;
                 var deltaData = this._deltas[this._currentDelta].split(",");
@@ -80,7 +77,6 @@ var Tickergrid;
             }
             var wait = this._deltas[this._currentDelta];
             if (this._deltas[this._currentDelta + 1] == '') {
-                console.log('Go back to beginning');
                 this._currentDelta = 0;
             }
             else {
@@ -129,18 +125,43 @@ var Tickergrid;
             tickergrid.innerHTML = html;
         };
         View.prototype.updateCompany = function (company) {
-            var row = '';
-            row += '<tr id="' + company.name + '">';
-            row += '<td>' + company.name + '</td>';
-            row += '<td>' + company.companyName + '</td>';
-            row += '<td>' + company.price + '</td>';
-            row += '<td>' + company.change + '</td>';
-            row += '<td>' + company.changePerc + '</td>';
-            row += '<td>' + company.mktCap + '</td>';
-            row += '</tr>';
-            var tablerow = document.getElementById(company.name);
-            tablerow.innerHTML = row;
-            tablerow.setAttribute('class', company.tick);
+            // Takes a company object and creates a new HTML row element
+            // and replaces the old one, adding the animation class
+            var oldRow = document.getElementById(company.name);
+            var newRow = document.createElement('tr');
+            newRow.setAttribute('id', company.name);
+            newRow.setAttribute('class', company.tick);
+            var td = document.createElement('td');
+            td.setAttribute('width', '10%');
+            newRow.appendChild(td);
+            var txt = document.createTextNode(company.name);
+            td.appendChild(txt);
+            td = document.createElement('td');
+            td.setAttribute('width', '30%');
+            newRow.appendChild(td);
+            txt = document.createTextNode(company.companyName);
+            td.appendChild(txt);
+            td = document.createElement('td');
+            td.setAttribute('width', '15%');
+            newRow.appendChild(td);
+            txt = document.createTextNode(company.price.toString());
+            td.appendChild(txt);
+            td = document.createElement('td');
+            td.setAttribute('width', '15%');
+            newRow.appendChild(td);
+            txt = document.createTextNode(company.change.toString());
+            td.appendChild(txt);
+            td = document.createElement('td');
+            td.setAttribute('width', '15%');
+            newRow.appendChild(td);
+            txt = document.createTextNode(company.changePerc.toString());
+            td.appendChild(txt);
+            td = document.createElement('td');
+            td.setAttribute('width', '15%');
+            newRow.appendChild(td);
+            txt = document.createTextNode(company.mktCap);
+            td.appendChild(txt);
+            var replacedNode = oldRow.parentNode.replaceChild(newRow, oldRow);
         };
         return View;
     })();

@@ -12,7 +12,6 @@ module Tickergrid
         public _deltas: any;
         public _headers: any;
         private _currentDelta: number;
-        private _updates: number;
 
         constructor(main)
         {
@@ -21,7 +20,6 @@ module Tickergrid
         	this._deltas = [];
 			this._headers = {};
 			this._currentDelta = 0;
-			this._updates = 0;
 
 			// Initialise the model by loading the snapshot data
 			this.loadSnapshot();
@@ -95,8 +93,7 @@ module Tickergrid
 
 
 	    deltaEngine (){
-	    	this._updates++
-	    	console.log (this._updates);
+
 			// Loop through the next chunk of delta lines 
 			for (var i = 0; i < this._companies.length; i++) {
 
@@ -135,20 +132,20 @@ module Tickergrid
 			var wait: number = this._deltas[this._currentDelta];
 
 			// Check if we're at the end of file
-			
 			if (this._deltas[this._currentDelta+1] == ''){
-				console.log ('Go back to beginning');
+				// Yep, there's nothing after this
 				this._currentDelta = 0;
 			}else{
+				// Carry on, James
 				this._currentDelta++;
 			}
 			
+			// Set the timer to recall the engine
 			var self = this;
 			setTimeout(function() {
 				self.deltaEngine();
 			}, wait);
 
-		
 	    }
 
     }
