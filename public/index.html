@@ -12,6 +12,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+
+        <link rel="stylesheet" href="css/style.css">
+
         <style>
             body {
                 padding-top: 40px;
@@ -44,13 +47,16 @@
 
           <a class="github btn btn-primary btn-xs pull-right glyphicon glyphicon-download-alt navbar-btn" href="https://github.com/listingslab/TypeScriptTickerGrid/archive/master.zip" target="_blank"> Download</a>
 
-          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/spokenNumberify/blob/master/src/createWords.js" target="_blank" role="button"> createWords.js</a>
+          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/TypeScriptTickerGrid/blob/master/src/Tickergrid/ICompany.ts" target="_blank" role="button">ICompany.ts</a>
 
-          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/spokenNumberify/blob/master/src/convertNumber.js" target="_blank" role="button">convertNumber.js</a>
+          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/TypeScriptTickerGrid/blob/master/src/Tickergrid/View.ts" target="_blank" role="button">View.ts</a>
 
-          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/spokenNumberify/blob/master/src/validate.js" target="_blank" role="button">validate.js</a>
+          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/TypeScriptTickerGrid/blob/master/src/Tickergrid/Model.ts" target="_blank" role="button">Model.ts</a>
 
-          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/TypeScriptTickerGrid/blob/master/src/main.ts" target="_blank" role="button">Main.ts</a>
+          <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/TypeScriptTickerGrid/blob/master/src/Main.ts" target="_blank" role="button">Main.ts</a>
+
+           <a class="btn btn-success btn-xs pull-right navbar-btn" href="https://github.com/listingslab/TypeScriptTickerGrid/blob/master/public/js/tickergrid.js" target="_blank" role="button">tickergrid.js</a>
+          
 
 
         </div><!--/.navbar-collapse -->
@@ -62,10 +68,8 @@
       <div class="container">
         <h1>TypeScript TickerGrid</h1>
         
-        <div class="form-group" id="inputForm">
-          
-          <input type="number" class="form-control" id="inputNumber">
-          <h4><div id="output">Please enter a whole number between 0 and 999999999999</div></h4>
+        <div id="tickergrid">
+          tickergrid
         </div>
 
       </div>
@@ -79,7 +83,9 @@
         
         <div class="col-md-4">
           <h2>The Task</h2>
-          <b><p>Create an App that takes a number [0 - 999,999,999,999] and converts it into its spoken equivalent. For example, 167 would convert to "one hundred and sixty seven".</p></b>
+          <b><p>Implement a financials ticker grid in TypeScript using the CSV data provided.
+
+The code should be written in an OO style. Any CSS written should use BEM notation. Do not use any 3rd party frameworks or libraries.</p></b>
 
            
         </div>
@@ -132,5 +138,17 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="js/tickergrid.js"></script>
+        <script type="text/javascript">
+
+            $( document ).ready(function() {
+                //Get class from namespace
+                var Main = Tickergrid.Main;
+                var app = new Main();
+            });
+
+        </script>
+
     </body>
 </html>

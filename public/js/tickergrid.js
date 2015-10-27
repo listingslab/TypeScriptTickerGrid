@@ -108,7 +108,7 @@ var Tickergrid;
             var headers = this._main._model._headers;
             var companies = this._main._model._companies;
             var html = '';
-            html += '<table border=0 cellpadding=3>';
+            html += '<table class="table-bordered">';
             html += '<tr>';
             for (var i = 0; i < headers.length; i++) {
                 html += '<th>';

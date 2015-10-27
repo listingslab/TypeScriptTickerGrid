@@ -1,57 +1,51 @@
-﻿@-webkit-keyframes tickUp {
+﻿#tickergrid table {
+  width: 98%;
+  margin:auto;
+  margin-top:15px;
+}
+
+@-webkit-keyframes tickUp {
   0%   { 
-  	background-color: #FFFFFF; 
-  	color:black;
+  	background-color: #505d6b; 
   }
   50%  { 
-  	background-color: blue; 
-  	color:white;
+  	background-color: #366b9c; 
   }
   100% { 
-  	background-color: #FFFFFF;
-  	color:black;
+  	background-color: #505d6b;
   }
 }
 @-moz-keyframes tickUp {
   0%   { 
-  	background-color: #FFFFFF;
-  	color:black; 
+  	background-color: #505d6b;
   }
   50%  { 
-  	background-color: blue; 
-  	color:white;
+  	background-color: #366b9c; 
   }
   100% { 
-  	background-color: #FFFFFF;
-  	color:black;
+  	background-color: #505d6b;
   }
 }
 @-o-keyframes tickUp {
   0%   { 
-  	background-color: #FFFFFF;
-  	color:black; 
+  	background-color: #505d6b;
   }
   50%  { 
-  	background-color: blue; 
-  	color:white;
+  	background-color: #366b9c; 
   }
   100% { 
-  	background-color: #FFFFFF; 
-  	color:black;
+  	background-color: #505d6b; 
   }
 }
 @keyframes tickUp {
   0%   { 
-  	background-color: #FFFFFF; 
-  	color:black;
+  	background-color: #505d6b; 
   }
   50%  { 
-  	background-color: blue; 
-  	color:white;
+  	background-color: #366b9c; 
   }
   100% { 
-  	background-color: #FFFFFF; 
-  	color:black;
+  	background-color: #505d6b; 
   }
 }
 .up{    
@@ -65,58 +59,46 @@
 
 @-webkit-keyframes tickDown {
   0%   { 
-  	background-color: #FFFFFF; 
-  	color:black;
+  	background-color: #505d6b; 
   }
   50%  { 
-  	background-color: red; 
-  	color:white;
+  	background-color: #639b4c; 
   }
   100% { 
-  	background-color: #FFFFFF;
-  	color:black;
+  	background-color: #505d6b;
   }
 }
 @-moz-keyframes tickDown {
   0%   { 
-  	background-color: #FFFFFF;
-  	color:black; 
+  	background-color: #505d6b;
   }
   50%  { 
-  	background-color: red; 
-  	color:white;
+  	background-color: #639b4c; 
   }
   100% { 
-  	background-color: #FFFFFF;
-  	color:black;
+  	background-color: #505d6b;
   }
 }
 @-o-keyframes tickDown {
   0%   { 
-  	background-color: #FFFFFF;
-  	color:black; 
+  	background-color: #505d6b;
   }
   50%  { 
-  	background-color: red; 
-  	color:white;
+  	background-color: #639b4c; 
   }
   100% { 
-  	background-color: #FFFFFF; 
-  	color:black;
+  	background-color: #505d6b; 
   }
 }
 @keyframes tickDown {
   0%   { 
-  	background-color: #FFFFFF; 
-  	color:black;
+  	background-color: #505d6b; 
   }
   50%  { 
-  	background-color: red; 
-  	color:white;
+  	background-color: #639b4c; 
   }
   100% { 
-  	background-color: #FFFFFF; 
-  	color:black;
+  	background-color: #505d6b; 
   }
 }
 .down{    

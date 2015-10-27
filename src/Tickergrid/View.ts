@@ -21,7 +21,7 @@ module Tickergrid
             
             // Create an HTML string describing the table we're going to use as our grid
             var html = ''
-            html += '<table border=0 cellpadding=3>';            
+            html += '<table class="table-bordered">';            
             html += '<tr>';
 
             // Create Table Heading
