@@ -52,55 +52,33 @@ module Tickergrid
             
         }
 
+        cell (width:string, content:string){
+
+            // Creates a table cell Element
+            var cell = document.createElement('td');
+            cell.setAttribute('width', '10%');
+            var cellText = document.createTextNode(content);
+            cell.appendChild (cellText);
+            return cell;
+        }
+
         updateCompany (company:ICompany){
             
             // Takes a company object and creates a new HTML row element
             // and replaces the old one, adding the animation class
-
             var oldRow = document.getElementById(company.name);
-
             var newRow = document.createElement('tr');
             newRow.setAttribute ('id', company.name);
             newRow.setAttribute('class', company.tick);
+            newRow.appendChild (this.cell ('10%', company.name));
+            newRow.appendChild (this.cell ('30%', company.companyName));
+            newRow.appendChild (this.cell ('15%', company.price.toString()));
+            newRow.appendChild (this.cell ('15%', company.change.toString()));
+            newRow.appendChild (this.cell ('15%', company.changePerc.toString()));
+            newRow.appendChild (this.cell ('15%', company.mktCap));
 
-            var td = document.createElement('td');
-            td.setAttribute('width', '10%');
-            newRow.appendChild (td);
-            var txt = document.createTextNode(company.name);
-            td.appendChild (txt);
-
-            td = document.createElement('td');
-            td.setAttribute('width', '30%');
-            newRow.appendChild (td);
-            txt = document.createTextNode(company.companyName);
-            td.appendChild (txt);
-
-            td = document.createElement('td');
-            td.setAttribute('width', '15%');
-            newRow.appendChild (td);
-            txt = document.createTextNode(company.price.toString());
-            td.appendChild (txt);
-
-            td = document.createElement('td');
-            td.setAttribute('width', '15%');
-            newRow.appendChild (td);
-            txt = document.createTextNode(company.change.toString());
-            td.appendChild (txt);
-
-            td = document.createElement('td');
-            td.setAttribute('width', '15%');
-            newRow.appendChild (td);
-            txt = document.createTextNode(company.changePerc.toString());
-            td.appendChild (txt);
-
-            td = document.createElement('td');
-            td.setAttribute('width', '15%');
-            newRow.appendChild (td);
-            txt = document.createTextNode(company.mktCap);
-            td.appendChild (txt);
-            
-            var replacedNode = oldRow.parentNode.replaceChild(newRow, oldRow);
-                
+            // This is the only interaction with the DOM needed per update            
+            oldRow.parentNode.replaceChild(newRow, oldRow);
         }
     }
 }
