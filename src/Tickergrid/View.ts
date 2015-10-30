@@ -26,7 +26,7 @@ module Tickergrid
 
             // Create Table Heading
             for (var i = 0; i < headers.length; i++) {
-                html += '<th>';
+                html += '<th align="left">';
                 html += headers[i];
                 html += '</th>';
             }

@@ -105,7 +105,7 @@ var Tickergrid;
             html += '<table class="table table-condensed table-hover">';
             html += '<tr>';
             for (var i = 0; i < headers.length; i++) {
-                html += '<th>';
+                html += '<th align="left">';
                 html += headers[i];
                 html += '</th>';
             }

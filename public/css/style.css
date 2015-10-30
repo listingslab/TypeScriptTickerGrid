@@ -108,3 +108,7 @@
   margin:15px;
 }
 
+#tickergrid table th {
+  text-align: left;
+}
+
