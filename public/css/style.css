@@ -1,45 +1,45 @@
 ﻿@-webkit-keyframes tickUp {
   0%   { 
-  	background-color: #505d6b; 
+  	background-color: none; 
   }
   50%  { 
   	background-color: #366b9c; 
   }
   100% { 
-  	background-color: #505d6b;
+  	background-color: none;
   }
 }
 @-moz-keyframes tickUp {
   0%   { 
-  	background-color: #505d6b;
+  	background-color: none;
   }
   50%  { 
   	background-color: #366b9c; 
   }
   100% { 
-  	background-color: #505d6b;
+  	background-color: none;
   }
 }
 @-o-keyframes tickUp {
   0%   { 
-  	background-color: #505d6b;
+  	background-color: none;
   }
   50%  { 
   	background-color: #366b9c; 
   }
   100% { 
-  	background-color: #505d6b; 
+  	background-color: none; 
   }
 }
 @keyframes tickUp {
   0%   { 
-  	background-color: #505d6b; 
+  	background-color: none; 
   }
   50%  { 
   	background-color: #366b9c; 
   }
   100% { 
-  	background-color: #505d6b; 
+  	background-color: none; 
   }
 }
 .up{    
@@ -53,46 +53,46 @@
 
 @-webkit-keyframes tickDown {
   0%   { 
-  	background-color: #505d6b; 
+  	background-color: none; 
   }
   50%  { 
   	background-color: #639b4c; 
   }
   100% { 
-  	background-color: #505d6b;
+  	background-color: none;
   }
 }
 @-moz-keyframes tickDown {
   0%   { 
-  	background-color: #505d6b;
+  	background-color: none;
   }
   50%  { 
   	background-color: #639b4c; 
   }
   100% { 
-  	background-color: #505d6b;
+  	background-color: none;
   }
 }
 @-o-keyframes tickDown {
   0%   { 
-  	background-color: #505d6b;
+  	background-color: none;
   }
   50%  { 
   	background-color: #639b4c; 
   }
   100% { 
-  	background-color: #505d6b; 
+  	background-color: none; 
   }
 }
 @keyframes tickDown {
   0%   { 
-  	background-color: #505d6b; 
+  	background-color: none; 
   }
   50%  { 
   	background-color: #639b4c; 
   }
   100% { 
-  	background-color: #505d6b; 
+  	background-color: none; 
   }
 }
 .down{    
