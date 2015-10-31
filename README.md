@@ -25,8 +25,8 @@ npm install
 Once these components are installed we can simply run the command ```grunt``` in our project directory. Any changes made to .ts files in the /src directory will immediately be compiled into the file /public/js/tickergrid.js. [LiveReload](http://livereload.com/) will pick up the change and refresh the browser for us. 
 
 ### Http Server
-Due to security factors in some browsers, the XMLHttpRequest used to load the .csv files will not work unless the project is served via an http server. The simplest and easiest way to do this is to install node's [http-server](https://www.npmjs.com/package/http-server). It's is a simple, zero-configuration command-line http server. Simply install it globally by running
+Because of browser secrurity restrictions we need a local webserver to run the TickerGrid app. We use a NodeJS static http server called live-server because it automatically reloads the page when the code changes.
 ```
-npm install http-server -g
+npm install -g live-server
 ```
-Then type ```http-server``` in the command line from the project directory. The server will automagically serve files from the ./public folder if one exists. Which it does. Then point your browser to http://127.0.0.1:8080/
+cd to the public folder and run ```live-server``` and hey presto.
