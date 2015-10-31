@@ -1,109 +1,161 @@
-﻿@-webkit-keyframes tickUp {
-  0%   { 
-  	background-color: none; 
-  }
-  50%  { 
-  	background-color: #366b9c; 
-  }
-  100% { 
-  	background-color: none;
-  }
+﻿
+body { 
+  margin: 0px; 
+  background-color:#333333;
+  font-size: 11px;
+  font-family: Verdana, Arial, sans-serif;
+  color:#ffffff;
+  overflow:hidden;
 }
-@-moz-keyframes tickUp {
-  0%   { 
-  	background-color: none;
-  }
-  50%  { 
-  	background-color: #366b9c; 
-  }
-  100% { 
-  	background-color: none;
-  }
+
+#tickergrid h1 {
+  font-weight:normal;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
-@-o-keyframes tickUp {
-  0%   { 
-  	background-color: none;
-  }
-  50%  { 
-  	background-color: #366b9c; 
-  }
-  100% { 
-  	background-color: none; 
-  }
+
+#tickergrid {
+  width:590px;
+  margin:auto;
 }
-@keyframes tickUp {
-  0%   { 
-  	background-color: none; 
-  }
-  50%  { 
-  	background-color: #366b9c; 
-  }
-  100% { 
-  	background-color: none; 
-  }
+
+#tickergrid__grid {
+  border: 1px solid #000;
+  padding:5px;
+  width:590px;
+  background-color: #575757;
 }
-.up{    
+
+.tickUp{    
     background-image:none !important;
-    -webkit-animation: tickUp 0.75s ease-in-out; 
-       -moz-animation: tickUp 0.75s ease-in-out; 
-         -o-animation: tickUp 0.75s ease-in-out; 
-            animation: tickUp 0.75s ease-in-out; 
+    -webkit-animation: tickUpKF 0.75s ease-in-out; 
+       -moz-animation: tickUpKF 0.75s ease-in-out; 
+         -o-animation: tickUpKF 0.75s ease-in-out; 
+            animation: tickUpKF 0.75s ease-in-out; 
 }
 
-
-@-webkit-keyframes tickDown {
-  0%   { 
-  	background-color: none; 
-  }
-  50%  { 
-  	background-color: #639b4c; 
-  }
-  100% { 
-  	background-color: none;
-  }
-}
-@-moz-keyframes tickDown {
-  0%   { 
-  	background-color: none;
-  }
-  50%  { 
-  	background-color: #639b4c; 
-  }
-  100% { 
-  	background-color: none;
-  }
-}
-@-o-keyframes tickDown {
-  0%   { 
-  	background-color: none;
-  }
-  50%  { 
-  	background-color: #639b4c; 
-  }
-  100% { 
-  	background-color: none; 
-  }
-}
-@keyframes tickDown {
-  0%   { 
-  	background-color: none; 
-  }
-  50%  { 
-  	background-color: #639b4c; 
-  }
-  100% { 
-  	background-color: none; 
-  }
-}
-.down{    
+.tickDown{
     background-image:none !important;
-    -webkit-animation: tickDown 0.75s ease-in-out; 
-       -moz-animation: tickDown 0.75s ease-in-out; 
-         -o-animation: tickDown 0.75s ease-in-out; 
-            animation: tickDown 0.75s ease-in-out; 
+    -webkit-animation: tickDownKF 0.75s ease-in-out; 
+       -moz-animation: tickDownKF 0.75s ease-in-out; 
+         -o-animation: tickDownKF 0.75s ease-in-out; 
+            animation: tickDownKF 0.75s ease-in-out; 
 }
 
-#tickergrid table {
-  max-width: 650px;
-  margin:15px;
+.rounded-corners {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/* Tick Flare Animation Keyframes */
+
+/* Green Animation */
+@-webkit-keyframes tickUpKF {
+  0%   { 
+  	background-color: none; 
+  }
+  50%  { 
+  	background-color: #397a5d; 
+  }
+  100% { 
+  	background-color: none;
+  }
+}
+@-moz-keyframes tickUpKF {
+  0%   { 
+  	background-color: none;
+  }
+  50%  { 
+  	background-color: #397a5d; 
+  }
+  100% { 
+  	background-color: none;
+  }
+}
+@-o-keyframes tickUpKF {
+  0%   { 
+  	background-color: none;
+  }
+  50%  { 
+  	background-color: #397a5d; 
+  }
+  100% { 
+  	background-color: none; 
+  }
+}
+@keyframes tickUpKF {
+  0%   { 
+  	background-color: none; 
+  }
+  50%  { 
+  	background-color: #397a5d; 
+  }
+  100% { 
+  	background-color: none; 
+  }
+}
+/* Yellow Animation */
+@-webkit-keyframes tickDownKF {
+  0%   { 
+  	background-color: none; 
+  }
+  25%  {
+    color: #333333; 
+  }
+  50%  { 
+  	background-color: #fddb3b;
+    color: #333333; 
+  }
+  100% { 
+  	background-color: none;
+    color: #ffffff; 
+  }
+}
+@-moz-keyframes tickDownKF {
+  0%   { 
+  	background-color: none;
+  }
+  25%  { 
+    color: #333333; 
+  }
+  50%  { 
+  	background-color: #fddb3b;
+  }
+  100% { 
+  	background-color: none;
+    color: #ffffff;
+  }
+}
+@-o-keyframes tickDownKF {
+  0%   { 
+  	background-color: none;
+  }
+  25%  { 
+    color: #333333;
+  }
+  50%  { 
+  	background-color: #fddb3b;
+  }
+  100% { 
+  	background-color: none;
+    color: #FFFFFF;
+  }
+}
+@keyframes tickDownKF {
+  0%   { 
+  	background-color: none;
+    color: #333333;
+  }
+  25%  { 
+    color: #333333;
+  }
+  50%  { 
+  	background-color: #fddb3b; 
+  }
+  100% { 
+  	background-color: none;
+    color: #FFFFFF;
+  }
 }

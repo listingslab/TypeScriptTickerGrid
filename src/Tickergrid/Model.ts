@@ -104,9 +104,9 @@ module Tickergrid
 				var newPrice = deltaData[2];
 				if (newPrice != '') {
 					if (newPrice > oldPrice) {
-						change = 'up';
+						change = 'tickUp';
 					}else{
-						change = 'down';
+						change = 'tickDown';
 					}
 				}
 

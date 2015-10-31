@@ -60,10 +60,10 @@ var Tickergrid;
                 var newPrice = deltaData[2];
                 if (newPrice != '') {
                     if (newPrice > oldPrice) {
-                        change = 'up';
+                        change = 'tickUp';
                     }
                     else {
-                        change = 'down';
+                        change = 'tickDown';
                     }
                 }
                 if (change) {
@@ -102,7 +102,7 @@ var Tickergrid;
             var headers = this._main._model._headers;
             var companies = this._main._model._companies;
             var html = '';
-            html += '<table class="table table-condensed table-hover">';
+            html += '<table class="table table-condensed table-hover" width="590">';
             html += '<tr>';
             for (var i = 0; i < headers.length; i++) {
                 html += '<th align="left">';
@@ -121,7 +121,7 @@ var Tickergrid;
                 html += '</tr>';
             }
             html += '</table>';
-            var tickergrid = document.getElementById("tickergrid");
+            var tickergrid = document.getElementById("tickergrid__grid");
             tickergrid.innerHTML = html;
         };
         View.prototype.cell = function (width, content) {

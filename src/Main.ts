@@ -3,6 +3,7 @@
 
 module Tickergrid
 {
+    
     import Model = Tickergrid.Model;
     import View = Tickergrid.View;
 

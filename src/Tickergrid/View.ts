@@ -21,7 +21,7 @@ module Tickergrid
             
             // Create an HTML string describing the table we're going to use as our grid
             var html = ''
-            html += '<table class="table table-condensed table-hover">';            
+            html += '<table class="table table-condensed table-hover" width="590">';            
             html += '<tr>';
 
             // Create Table Heading
@@ -47,7 +47,7 @@ module Tickergrid
             html += '</table>';
 
             // Render the HTML to the tickergrid div in the DOM
-            var tickergrid = document.getElementById("tickergrid");
+            var tickergrid = document.getElementById("tickergrid__grid");
             tickergrid.innerHTML = html;
             
         }
