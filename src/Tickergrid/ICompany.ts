@@ -9,6 +9,7 @@ module Tickergrid
         change: number;
 		changePerc: number;
 		mktCap: string;
-        tick: string;
+        lastTick: string;
+        lastTickTime: number;
     }
 }

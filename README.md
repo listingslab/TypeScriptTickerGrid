@@ -24,15 +24,15 @@ Notification that an item has been updated via a visual flare in the UI is handl
 
 I wanted to try out the CSS3 @keyframes technique because I used to be a Flash Developer and was interested to discover more options for making a UI look and feel great.
 
-**Developed in TypeScript using Sublime.**
+### Developed in TypeScript using Sublime.
 
-## Clone the repository
+### Clone the repository
 cd to the folder you want to contain your new project and run 
 ```
 git clone git@github.com:listingslab/TypeScriptTickerGrid.git
 ```
 
-## TypeScript Compiler
+### TypeScript Compiler
 The Typescript compiler wrapper. Exposes the [TypeScript command line compiler](https://www.npmjs.com/package/typescript-compiler) to your code.
 ```
 npm install typescript-compiler

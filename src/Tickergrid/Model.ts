@@ -1,4 +1,5 @@
 ///<reference path='ICompany.ts'/>
+///<reference path='Company.ts'/>
 
 module Tickergrid
 {
@@ -7,19 +8,19 @@ module Tickergrid
     export class Model
     {
     	
-    	private _main: any;
-        public _companies: any;
-        public _deltas: any;
-        public _headers: any;
-        private _currentDelta: number;
+    	private main: any;
+        public companies: any;
+        public deltas: any;
+        public gridHeaders: Array<number>;
+        private currentDelta: number;
 
         constructor(main)
         {
-			this._main = main;
-        	this._companies = [];
-        	this._deltas = [];
-			this._headers = {};
-			this._currentDelta = 0;
+			this.main = main;
+        	this.companies = [];
+        	this.deltas = [];
+			this.gridHeaders = [];
+			this.currentDelta = 0;
 
 			// Initialise the model by loading the snapshot data
 			this.loadSnapshot();
@@ -40,30 +41,32 @@ module Tickergrid
 			// Split the loaded cvs into lines array on line breaks
 			var lines = res.split("\n");
 
-			// Get our table headers
-			this._headers = lines[0].split(',');
+			// Get our table gridHeaders
+			this.gridHeaders = lines[0].split(',');
 			
 			// Loop through the rest of the lines and create a company Object for each
 			for (var i = 1; i < lines.length; i++) {
 				var line = lines[i].split(',');
 				if (line[0] != '' && line[1] != '') {
-					var company: ICompany = {
+					var data = {
 						name: line[0],
 						companyName: line[1],
 						price: line[2],
 						change: line[3],
 						changePerc: line[4],
 						mktCap: line[5],
-						tick: ''
+						lastTick: '',
+						lastTickTime: Math.round(+new Date()/1000)
 					}
+					var company:ICompany = new Company (data);
 
-					// Add the ICompany interfaced object to _companies array 
-					this._companies.push(company);
+					// Add the ICompany interfaced object to companies array 
+					this.companies.push(company);
 				}
 			}
 
 			// Call the View to render the grid
-			this._main._view.renderGrid();
+			this.main.grid.renderGrid();
 
 			// Load Deltas csv
 			this.loadDeltas();
@@ -82,7 +85,7 @@ module Tickergrid
 		parseDeltas(res) {
 
 			// Add the deltas to our array 
-			this._deltas = res.split("\n");
+			this.deltas = res.split("\n");
 
 			// Wait for 2 seconds before kicking off the the delta engine
 			var self = this;
@@ -95,18 +98,21 @@ module Tickergrid
 	    deltaEngine (){
 
 			// Loop through the next chunk of delta lines 
-			for (var i = 0; i < this._companies.length; i++) {
+			for (var i = 0; i < this.companies.length; i++) {
 
 				// Make sure we haven't run out of deltas
-				var change:any = false;
-				var deltaData = this._deltas[this._currentDelta].split(",");
-				var oldPrice = this._companies[i].price;
+				var change:boolean = false;
+				var lastTick:string;
+				var deltaData = this.deltas[this.currentDelta].split(",");
+				var oldPrice = this.companies[i].price;
 				var newPrice = deltaData[2];
 				if (newPrice != '') {
 					if (newPrice > oldPrice) {
-						change = 'tickUp';
+						change = true;
+						lastTick = 'tickergrid-tickUp';
 					}else{
-						change = 'tickDown';
+						change = true;
+						lastTick = 'tickergrid-tickDown';
 					}
 				}
 
@@ -114,30 +120,30 @@ module Tickergrid
 				if (change){
 
 					// Update the object in the model
-					this._companies[i].price = deltaData[2];
-					this._companies[i].change = deltaData[3];
-					this._companies[i].changePerc = deltaData[4];
-					this._companies[i].tick = change;
+					this.companies[i].price = deltaData[2];
+					this.companies[i].change = deltaData[3];
+					this.companies[i].changePerc = deltaData[4];
+					this.companies[i].lastTick = lastTick;
 
 					// Propagate the change to the view
-					this._main._view.updateCompany(this._companies[i]);
+					this.main.grid.updateCompany(this.companies[i]);
 				}
 
 				// Keep track of where we are in the delta list
-				this._currentDelta++;
+				this.currentDelta++;
 			
 			}
 				
 			// Get the time to wait before next update
-			var wait: number = this._deltas[this._currentDelta];
+			var wait: number = this.deltas[this.currentDelta];
 
 			// Check if we're at the end of file
-			if (this._deltas[this._currentDelta+1] == ''){
+			if (this.deltas[this.currentDelta+1] == ''){
 				// Yep, there's nothing after this
-				this._currentDelta = 0;
+				this.currentDelta = 0;
 			}else{
 				// Carry on, James
-				this._currentDelta++;
+				this.currentDelta++;
 			}
 			
 			// Set the timer to recall the engine

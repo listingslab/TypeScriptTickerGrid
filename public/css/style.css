@@ -10,7 +10,7 @@ body {
 
 #tickergrid h1 {
   font-weight:normal;
-  margin-top: 20px;
+  margin-top: 40px;
   margin-bottom: 20px;
 }
 
@@ -19,14 +19,29 @@ body {
   margin:auto;
 }
 
+#tickergrid__chart {
+  border: 1px solid #000;
+  padding:5px;
+  margin-top:10px;
+  background-color: #575757;
+}
+
 #tickergrid__grid {
   border: 1px solid #000;
   padding:5px;
   width:590px;
   background-color: #575757;
+  cursor: pointer; 
+  cursor: hand;
 }
 
-.tickUp{    
+.tickergrid__grid-header th {
+  font-size: 12px;
+  padding-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+.tickergrid-tickUp{    
     background-image:none !important;
     -webkit-animation: tickUpKF 0.75s ease-in-out; 
        -moz-animation: tickUpKF 0.75s ease-in-out; 
@@ -34,7 +49,7 @@ body {
             animation: tickUpKF 0.75s ease-in-out; 
 }
 
-.tickDown{
+.tickergrid-tickDown{
     background-image:none !important;
     -webkit-animation: tickDownKF 0.75s ease-in-out; 
        -moz-animation: tickDownKF 0.75s ease-in-out; 
@@ -42,7 +57,7 @@ body {
             animation: tickDownKF 0.75s ease-in-out; 
 }
 
-.rounded-corners {
+.tickergrid-corners {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     -khtml-border-radius: 5px;
@@ -51,13 +66,13 @@ body {
 
 /* Tick Flare Animation Keyframes */
 
-/* Green Animation */
+/* Dark Animation */
 @-webkit-keyframes tickUpKF {
   0%   { 
   	background-color: none; 
   }
   50%  { 
-  	background-color: #397a5d; 
+  	background-color: #333333; 
   }
   100% { 
   	background-color: none;
@@ -68,7 +83,7 @@ body {
   	background-color: none;
   }
   50%  { 
-  	background-color: #397a5d; 
+  	background-color: #333333; 
   }
   100% { 
   	background-color: none;
@@ -79,7 +94,7 @@ body {
   	background-color: none;
   }
   50%  { 
-  	background-color: #397a5d; 
+  	background-color: #333333; 
   }
   100% { 
   	background-color: none; 
@@ -90,23 +105,22 @@ body {
   	background-color: none; 
   }
   50%  { 
-  	background-color: #397a5d; 
+  	background-color: #333333; 
   }
   100% { 
   	background-color: none; 
   }
 }
-/* Yellow Animation */
+/* Light Animation */
 @-webkit-keyframes tickDownKF {
   0%   { 
   	background-color: none; 
   }
-  25%  {
+  40%  {
     color: #333333; 
   }
   50%  { 
-  	background-color: #fddb3b;
-    color: #333333; 
+  	background-color: #787878;
   }
   100% { 
   	background-color: none;
@@ -117,11 +131,11 @@ body {
   0%   { 
   	background-color: none;
   }
-  25%  { 
-    color: #333333; 
+  40%  { 
+    color: #000; 
   }
   50%  { 
-  	background-color: #fddb3b;
+  	background-color: #787878;
   }
   100% { 
   	background-color: none;
@@ -132,11 +146,11 @@ body {
   0%   { 
   	background-color: none;
   }
-  25%  { 
-    color: #333333;
+  40%  { 
+    color: #000;
   }
   50%  { 
-  	background-color: #fddb3b;
+  	background-color: #787878;
   }
   100% { 
   	background-color: none;
@@ -148,11 +162,11 @@ body {
   	background-color: none;
     color: #333333;
   }
-  25%  { 
-    color: #333333;
+  40%  { 
+    color: #000;
   }
   50%  { 
-  	background-color: #fddb3b; 
+  	background-color: #787878; 
   }
   100% { 
   	background-color: none;

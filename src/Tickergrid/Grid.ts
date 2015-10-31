@@ -4,32 +4,33 @@ module Tickergrid
 {
     import ICompany = Tickergrid.ICompany;
 
-    export class View
+    export class Grid
     {
-        private _main:any;
+        private main:any;
 
         constructor(main)
         {
-            this._main = main;
+            this.main = main;
         }
 
         renderGrid (){
 
             // Set up our data
-            var headers = this._main._model._headers;
-            var companies = this._main._model._companies;
+            var gridHeaders = this.main.model.gridHeaders;
+            var companies = this.main.model.companies;
             
             // Create an HTML string describing the table we're going to use as our grid
             var html = ''
-            html += '<table class="table table-condensed table-hover" width="590">';            
-            html += '<tr>';
+            html += '<table class="table table-condensed table-hover" width="590" cellpadding="4">';
 
-            // Create Table Heading
-            for (var i = 0; i < headers.length; i++) {
-                html += '<th align="left">';
-                html += headers[i];
-                html += '</th>';
-            }
+            // Create Table Heading         
+            html += '<tr class="tickergrid__grid-header">';
+            html += '<th width="10%" align="left">'+gridHeaders[0]+'</th>';
+            html += '<th width="30%" align="left">'+gridHeaders[1]+'</th>';
+            html += '<th width="15%" align="left">'+gridHeaders[2]+'</th>';
+            html += '<th width="15%" align="left">'+gridHeaders[3]+'</th>';
+            html += '<th width="15%" align="left">'+gridHeaders[4]+'</th>';
+            html += '<th width="15%" align="left">'+gridHeaders[5]+'</th>';
             html += '</tr>';
 
             // Create rows for wach of our companies and reference them with thier 
@@ -49,10 +50,17 @@ module Tickergrid
             // Render the HTML to the tickergrid div in the DOM
             var tickergrid = document.getElementById("tickergrid__grid");
             tickergrid.innerHTML = html;
-            
+
+            // add listeners
+            tickergrid.addEventListener ("click", () => this.main.chart.switchChart (event['path'][1]['id']));
+
+
+            // Set the current chart to the first company on the list
+            this.main.chart.switchChart (companies[0].name);
+
         }
 
-        cell (width:string, content:string){
+        createCell (width:string, content:string){
 
             // Creates a table cell Element
             var cell = document.createElement('td');
@@ -69,13 +77,13 @@ module Tickergrid
             var oldRow = document.getElementById(company.name);
             var newRow = document.createElement('tr');
             newRow.setAttribute ('id', company.name);
-            newRow.setAttribute('class', company.tick);
-            newRow.appendChild (this.cell ('10%', company.name));
-            newRow.appendChild (this.cell ('30%', company.companyName));
-            newRow.appendChild (this.cell ('15%', company.price.toString()));
-            newRow.appendChild (this.cell ('15%', company.change.toString()));
-            newRow.appendChild (this.cell ('15%', company.changePerc.toString()));
-            newRow.appendChild (this.cell ('15%', company.mktCap));
+            newRow.setAttribute('class', company.lastTick);
+            newRow.appendChild (this.createCell ('10%', company.name));
+            newRow.appendChild (this.createCell ('30%', company.companyName));
+            newRow.appendChild (this.createCell ('15%', company.price.toString()));
+            newRow.appendChild (this.createCell ('15%', company.change.toString()));
+            newRow.appendChild (this.createCell ('15%', company.changePerc.toString()));
+            newRow.appendChild (this.createCell ('15%', company.mktCap));
 
             // This is the only interaction with the DOM needed per update            
             oldRow.parentNode.replaceChild(newRow, oldRow);
