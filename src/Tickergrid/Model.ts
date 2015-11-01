@@ -47,7 +47,7 @@ module Tickergrid
 			// Loop through the rest of the lines and create a company Object for each
 			for (var i = 1; i < lines.length; i++) {
 				var line = lines[i].split(',');
-				var time = Math.round(+new Date()/1000);
+				var time = Math.round(+new Date());
 				if (line[0] != '' && line[1] != '') {
 					var data = {
 						name: line[0],
@@ -89,11 +89,11 @@ module Tickergrid
 			// Add the deltas to our array 
 			this.deltas = res.split("\n");
 
-			// Wait for 2 seconds before kicking off the the delta engine
+			// Wait for 1 seconds before kicking off the the delta engine
 			var self = this;
 			setTimeout(function() {
 				self.deltaEngine();
-			}, 2000);
+			}, 1000);
 	    }
 
 
@@ -105,7 +105,7 @@ module Tickergrid
 				// Make sure we haven't run out of deltas
 				var change:boolean = false;
 				var lastTick:string;
-				var lastTickTime:number = Math.round(+new Date()/1000);
+				var lastTickTime:number = Math.round(+new Date());
 				var deltaData = this.deltas[this.currentDelta].split(",");
 				var oldPrice = this.companies[i].price;
 				var newPrice = deltaData[2];
@@ -161,11 +161,17 @@ module Tickergrid
 				this.currentDelta++;
 			}
 			
-			// Set the timer to recall the engine
-			var self = this;
-			setTimeout(function() {
-				self.deltaEngine();
-			}, wait);
+			if (!this.main.paused){
+
+				// Set the timer to recall the engine if the app isn't paused
+				var self = this;
+				setTimeout(function() {
+					self.deltaEngine();
+				}, wait);
+
+			}
+
+
 
 	    }
 
