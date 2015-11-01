@@ -11,5 +11,6 @@ module Tickergrid
 		mktCap: string;
         lastTick: string;
         lastTickTime: number;
+        history: any;
     }
 }

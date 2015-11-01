@@ -56,7 +56,8 @@ module Tickergrid
 						changePerc: line[4],
 						mktCap: line[5],
 						lastTick: '',
-						lastTickTime: Math.round(+new Date()/1000)
+						lastTickTime: Math.round(+new Date()/1000),
+						history: []
 					}
 					var company:ICompany = new Company (data);
 
@@ -96,7 +97,7 @@ module Tickergrid
 
 
 	    deltaEngine (){
-
+	    	
 			// Loop through the next chunk of delta lines 
 			for (var i = 0; i < this.companies.length; i++) {
 
@@ -116,6 +117,8 @@ module Tickergrid
 					}
 				}
 
+
+
 				// Does the delta should update the company object?
 				if (change){
 
@@ -124,9 +127,15 @@ module Tickergrid
 					this.companies[i].change = deltaData[3];
 					this.companies[i].changePerc = deltaData[4];
 					this.companies[i].lastTick = lastTick;
+					this.companies[i].lastTickTime = Math.round(+new Date()/1000);
 
-					// Propagate the change to the view
-					this.main.grid.updateCompany(this.companies[i]);
+					// Update the company Object's history
+					this.companies[i].updateHistory();
+
+					// Propagate the change to the grid
+					this.main.grid.tickCompanyRow(this.companies[i]);
+
+
 				}
 
 				// Keep track of where we are in the delta list
@@ -152,6 +161,19 @@ module Tickergrid
 				self.deltaEngine();
 			}, wait);
 
+	    }
+
+
+	    getCompanyObject(name:string) {
+
+	    	// Loop through the next chunk of delta lines 
+			for (var i = 0; i < this.companies.length; i++) {
+				if (this.companies[i].name == name){
+					return this.companies[i];
+					break;
+				}
+			}
+        	
 	    }
 
     }

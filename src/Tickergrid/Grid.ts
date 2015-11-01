@@ -51,7 +51,7 @@ module Tickergrid
             var tickergrid = document.getElementById("tickergrid__grid");
             tickergrid.innerHTML = html;
 
-            // add listeners
+            // add a listener to the grid to change the chart to a new company
             tickergrid.addEventListener ("click", () => this.main.chart.switchChart (event['path'][1]['id']));
 
 
@@ -70,7 +70,7 @@ module Tickergrid
             return cell;
         }
 
-        updateCompany (company:ICompany){
+        tickCompanyRow (company:ICompany){
             
             // Takes a company object and creates a new HTML row element
             // and replaces the old one, adding the animation class

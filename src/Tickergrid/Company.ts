@@ -14,6 +14,7 @@ module Tickergrid
 		public mktCap: string;
         public lastTick: string;
         public lastTickTime: number;
+        public history: any;
 
     	constructor(data)
         {
@@ -25,9 +26,12 @@ module Tickergrid
 			this.mktCap = data.mktCap;
 	        this.lastTick = data.lastTick;
             this.lastTick = data.lastTickTime;
+            this.history = data.history;
         }
 
-        
+        updateHistory (){
+            //console.log ('updating history for ' + this.name);
+        }   
 
     }
 
