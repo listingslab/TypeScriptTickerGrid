@@ -60,7 +60,7 @@ module Tickergrid
             var params = this.getHistoryParams (data.history);
 
             // The percentge we'll go above and below the max and min prices 
-            var percentage = 0.0005;
+            var percentage = 0.0001;
 
             // Write the axis data
             var topPrice:number = Math.ceil (params.highestPrice + params.highestPrice * percentage); 
@@ -88,7 +88,6 @@ module Tickergrid
             for (var i = 0; i < points.length; i++) {
                 var point = points[i];
                 x = 540 - (params.highestTime - point.time)/20000 * 540;
-                if (x < 20){ x = 20};
                 y = 190*(topPrice - point.price)/(topPrice - botPrice);
                 this.chart.lineTo (x, y);
                 this.drawPoint (x,y);

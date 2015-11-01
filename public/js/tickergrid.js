@@ -16,7 +16,7 @@ var Tickergrid;
             this.history.push(tickHistory);
         }
         Company.prototype.updateHistory = function (tickHistory) {
-            var maxHistory = 10;
+            var maxHistory = 15;
             this.history.push(tickHistory);
             if (this.history.length > maxHistory) {
                 this.history.shift();
@@ -235,7 +235,7 @@ var Tickergrid;
             this.chart.strokeStyle = "#afafaf";
             this.chart.stroke();
             var params = this.getHistoryParams(data.history);
-            var percentage = 0.0005;
+            var percentage = 0.0001;
             var topPrice = Math.ceil(params.highestPrice + params.highestPrice * percentage);
             var botPrice = Math.floor(params.lowestPrice - params.lowestPrice * percentage);
             var midPrice = botPrice + (topPrice - botPrice) / 2;
@@ -257,10 +257,6 @@ var Tickergrid;
             for (var i = 0; i < points.length; i++) {
                 var point = points[i];
                 x = 540 - (params.highestTime - point.time) / 20000 * 540;
-                if (x < 20) {
-                    x = 20;
-                }
-                ;
                 y = 190 * (topPrice - point.price) / (topPrice - botPrice);
                 this.chart.lineTo(x, y);
                 this.drawPoint(x, y);

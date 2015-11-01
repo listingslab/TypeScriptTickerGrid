@@ -23,7 +23,7 @@ Notification that an item has been updated via a visual flare in the UI is handl
 I wanted to try out the CSS3 @keyframes technique because I used to be a Flash Developer and was interested to discover more options for making a UI look and feel great.
 
 ## 4. Chart Class
-This is a little experimental. The idea is that on every tick each company Object updates it's tick history. The chart then gets re-rendered on each tick
+This is a little experimental. The idea is that on every tick each company Object updates it's tick history. The chart then gets re-rendered on each tick.
 
 
 

@@ -36,7 +36,7 @@ module Tickergrid
         updateHistory (tickHistory:any){
             
             // keep a maximum of 10 ticks in the history
-            var maxHistory = 10;
+            var maxHistory = 15;
             this.history.push (tickHistory);
             if (this.history.length > maxHistory){
                 this.history.shift ();

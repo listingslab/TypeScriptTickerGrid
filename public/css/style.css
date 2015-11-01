@@ -14,6 +14,12 @@ body {
   margin-bottom: 20px;
 }
 
+#tickergrid a {
+  font-weight:normal;
+  text-decoration: none;
+  color: #ffffff;
+}
+
 #tickergrid {
   width:590px;
   margin:auto;
