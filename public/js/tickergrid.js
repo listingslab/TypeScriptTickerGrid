@@ -235,7 +235,7 @@ var Tickergrid;
             this.chart.strokeStyle = "#afafaf";
             this.chart.stroke();
             var params = this.getHistoryParams(data.history);
-            var percentage = 0.0001;
+            var percentage = 0.0005;
             var topPrice = Math.ceil(params.highestPrice + params.highestPrice * percentage);
             var botPrice = Math.floor(params.lowestPrice - params.lowestPrice * percentage);
             var midPrice = botPrice + (topPrice - botPrice) / 2;
