@@ -1,14 +1,41 @@
 # TypeScript TickerGrid
 
-**Developed in TypeScript using Sublime.** The project is far from perfect and there are some clumsy workarounds here and there. I did want to use an Event based approach, but found problems in Internet Explorer (natch). Setting up the project locally needs a few things...
+## 1. TypeScript Module
+The internal module encapsulates the functionality, and prevents pollution of the global namespace.
 
-## Clone the repository
+Aside from the Main class, which is entry point to the application, TickerGrid comprises a View class, a Model Class and an interface called iCompany.
+
+These are all compiled into a single JavaScript file called tickergrid.js
+
+## 2. Model Class
+
+The Model handles the loading, storage and parsing of the data. It's first job is to load the snapshot file, parse it into an array of Company objects and then send a message to the View to render the grid to the DOM.
+
+The second part of the model's job is to provide an engine to process the deltas, update the Company objects with new data and then communicate those changes to the View to be shown in the UI.
+
+## 3. Grid Class
+The view's job is to interact with the DOM as efficiently as possible using the Model's data. The approach I've taken is to create and render a table to an existing div on the page.
+
+When the Model emits a message to update a row, the view class creates a new 'tr' element and replaces the old row with the new element.
+
+Notification that an item has been updated via a visual flare in the UI is handled by <a href="css/style.css" target="_blank">CSS</a>, thus offloading animation logic to the browser itself, which it is efficient at.
+
+I wanted to try out the CSS3 @keyframes technique because I used to be a Flash Developer and was interested to discover more options for making a UI look and feel great.
+
+## 4. Chart Class
+This is a little experimental. The idea is that on every tick each company Object updates it's tick history. The chart then gets re-rendered on each tick.
+
+
+
+### Developed in TypeScript using Sublime.
+
+### Clone the repository
 cd to the folder you want to contain your new project and run 
 ```
 git clone git@github.com:listingslab/TypeScriptTickerGrid.git
 ```
 
-## TypeScript Compiler
+### TypeScript Compiler
 The Typescript compiler wrapper. Exposes the [TypeScript command line compiler](https://www.npmjs.com/package/typescript-compiler) to your code.
 ```
 npm install typescript-compiler
@@ -22,11 +49,11 @@ We use Grunt to facilitate workflow. The Gruntfile.js is very simple, it's defau
 ```
 npm install
 ```
-Once these components are installed we can simply run the command ```grunt``` in our project directory. Any changes made to .ts files in the /src directory will immediately be compiled into the file /public/js/tickergrid.js. [LiveReload](http://livereload.com/) will pick up the change and refresh the browser for us. 
+Once these components are installed we can simply run the command ```grunt``` in our project directory. Any changes made to .ts files in the /src directory will immediately be compiled into the file /public/js/tickergrid.js.
 
 ### Http Server
-Due to security factors in some browsers, the XMLHttpRequest used to load the .csv files will not work unless the project is served via an http server. The simplest and easiest way to do this is to install node's [http-server](https://www.npmjs.com/package/http-server). It's is a simple, zero-configuration command-line http server. Simply install it globally by running
+Because of browser secrurity restrictions we need a local webserver to run the TickerGrid app. We use a NodeJS static http server called live-server because it automatically reloads the page when the code changes.
 ```
-npm install http-server -g
+npm install -g live-server
 ```
-Then type ```http-server``` in the command line from the project directory. The server will automagically serve files from the ./public folder if one exists. Which it does. Then point your browser to http://127.0.0.1:8080/
+cd to the public folder and run ```live-server``` and hey presto.
