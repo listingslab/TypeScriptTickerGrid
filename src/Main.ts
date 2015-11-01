@@ -15,7 +15,6 @@ module Tickergrid
         public model: Model;
         public grid: Grid;
         public chart: Chart;
-        public paused:boolean;
 
         constructor()
         {
@@ -23,20 +22,7 @@ module Tickergrid
             this.model = new Model (this);
             this.grid = new Grid (this);
             this.chart = new Chart (this);
-            this.paused = false;
 
-            // add a listener to the pause button
-            var btn__pause = document.getElementById("btn__pause");
-            btn__pause.addEventListener ("click", () => this.togglePause());
-        }
-
-        togglePause (){
-            if (!this.paused){
-                this.paused = true;
-            }else{
-                this.paused = false;
-                this.model.deltaEngine();
-            }
         }
 
     }

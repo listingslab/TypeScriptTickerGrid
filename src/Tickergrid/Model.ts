@@ -161,18 +161,13 @@ module Tickergrid
 				this.currentDelta++;
 			}
 			
-			if (!this.main.paused){
+			// Set the timer to recall the engine if the app isn't paused
+			var self = this;
+			setTimeout(function() {
+				self.deltaEngine();
+			}, wait);
 
-				// Set the timer to recall the engine if the app isn't paused
-				var self = this;
-				setTimeout(function() {
-					self.deltaEngine();
-				}, wait);
-
-			}
-
-
-
+			
 	    }
 
 

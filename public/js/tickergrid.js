@@ -12,9 +12,11 @@ var Tickergrid;
             this.lastTick = data.lastTick;
             this.lastTick = data.lastTickTime;
             this.history = data.history;
+            var tickHistory = { price: this.price, time: this.lastTick };
+            this.history.push(tickHistory);
         }
         Company.prototype.updateHistory = function (tickHistory) {
-            var maxHistory = 5;
+            var maxHistory = 10;
             this.history.push(tickHistory);
             if (this.history.length > maxHistory) {
                 this.history.shift();
@@ -121,12 +123,10 @@ var Tickergrid;
             else {
                 this.currentDelta++;
             }
-            if (!this.main.paused) {
-                var self = this;
-                setTimeout(function () {
-                    self.deltaEngine();
-                }, wait);
-            }
+            var self = this;
+            setTimeout(function () {
+                self.deltaEngine();
+            }, wait);
         };
         Model.prototype.getCompanyObject = function (name) {
             for (var i = 0; i < this.companies.length; i++) {
@@ -206,20 +206,11 @@ var Tickergrid;
 (function (Tickergrid) {
     var Chart = (function () {
         function Chart(main) {
-            var _this = this;
             this.main = main;
             this.currentChart = '';
             var canvas = document.getElementById('tickergrid__chart');
             this.chart = canvas.getContext('2d');
-            canvas.addEventListener("click", function () { return _this.dumpData(); });
         }
-        Chart.prototype.dumpData = function () {
-            var data = this.main.model.getCompanyObject(this.currentChart);
-            console.log(data.name);
-            for (var i = 0; i < data.history.length; i++) {
-                console.log(data.history[i].time + ' ' + data.history[i].price);
-            }
-        };
         Chart.prototype.renderChart = function () {
             var canvas = document.getElementById('tickergrid__chart');
             this.chart.clearRect(0, 0, canvas.width, canvas.height);
@@ -229,7 +220,8 @@ var Tickergrid;
             this.chart.fillText(data.companyName + ' (' + data.name + ')', 20, 30);
             this.chart.beginPath();
             this.chart.setLineDash([1, 0]);
-            this.chart.strokeStyle = "#ffffff";
+            this.chart.lineWidth = 1;
+            this.chart.strokeStyle = "#afafaf";
             this.chart.moveTo(20, 190);
             this.chart.lineTo(540, 190);
             this.chart.lineTo(540, 40);
@@ -243,35 +235,44 @@ var Tickergrid;
             this.chart.strokeStyle = "#afafaf";
             this.chart.stroke();
             var params = this.getHistoryParams(data.history);
-            var percentage = 0.025;
+            var percentage = 0.0005;
             var topPrice = Math.ceil(params.highestPrice + params.highestPrice * percentage);
             var botPrice = Math.floor(params.lowestPrice - params.lowestPrice * percentage);
             var midPrice = botPrice + (topPrice - botPrice) / 2;
             this.chart.font = "11px Arial";
-            this.chart.fillStyle = 'white';
+            this.chart.fillStyle = "#afafaf";
             this.chart.fillText(topPrice, 550, 45);
-            this.chart.fillText(botPrice, 550, 195);
+            this.chart.fillText(botPrice, 550, 193);
             this.chart.fillText(midPrice, 550, 120);
+            this.chart.fillText('0s', 533, 210);
+            this.chart.fillText('10s', 270, 210);
+            this.chart.fillText('20s', 15, 210);
             var x;
             var y;
             var points = data.history;
-            var point = points[0];
-            var timeSpan = params.highestTime - params.lowestTime;
-            var timeSinceStart = point.time - params.highestTime;
-            if (timeSinceStart == 0) {
-                x = 540;
+            var firstPoint = points[0];
+            this.chart.beginPath();
+            this.chart.strokeStyle = "#afafaf";
+            this.chart.lineWidth = 2;
+            for (var i = 0; i < points.length; i++) {
+                var point = points[i];
+                x = 540 - (params.highestTime - point.time) / 20000 * 540;
+                if (x < 20) {
+                    x = 20;
+                }
+                ;
+                y = 190 * (topPrice - point.price) / (topPrice - botPrice);
+                this.chart.lineTo(x, y);
+                this.drawPoint(x, y);
             }
-            else {
-            }
-            y = 190 * (topPrice - point.price) / (topPrice - botPrice);
-            this.drawPoint(x, y);
+            this.chart.stroke();
         };
         Chart.prototype.drawPoint = function (x, y) {
             this.chart.setLineDash([1, 0]);
-            this.chart.fillStyle = "#397a5d";
-            this.chart.fillRect(x - 3, y - 3, 6, 6);
-            this.chart.strokeStyle = "#fddb3b";
-            this.chart.strokeRect(x - 3, y - 3, 6, 6);
+            this.chart.fillStyle = "#fff";
+            this.chart.fillRect(x - 2, y - 2, 4, 4);
+            this.chart.strokeStyle = "#fff";
+            this.chart.strokeRect(x - 2, y - 2, 4, 4);
         };
         Chart.prototype.getHistoryParams = function (history) {
             var params = {};
@@ -328,23 +329,10 @@ var Tickergrid;
     var Chart = Tickergrid.Chart;
     var Main = (function () {
         function Main() {
-            var _this = this;
             this.model = new Model(this);
             this.grid = new Grid(this);
             this.chart = new Chart(this);
-            this.paused = false;
-            var btn__pause = document.getElementById("btn__pause");
-            btn__pause.addEventListener("click", function () { return _this.togglePause(); });
         }
-        Main.prototype.togglePause = function () {
-            if (!this.paused) {
-                this.paused = true;
-            }
-            else {
-                this.paused = false;
-                this.model.deltaEngine();
-            }
-        };
         return Main;
     })();
     Tickergrid.Main = Main;

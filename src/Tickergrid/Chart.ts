@@ -20,19 +20,7 @@ module Tickergrid
             var canvas = <HTMLCanvasElement> document.getElementById('tickergrid__chart');
             this.chart = canvas.getContext('2d');
 
-            canvas.addEventListener ("click", () => this.dumpData());
-
         }
-
-        dumpData (){
-            var data = this.main.model.getCompanyObject(this.currentChart);
-            console.log (data.name);
-            for (var i = 0; i < data.history.length; i++) {
-                console.log (data.history[i].time + ' '+ data.history[i].price);
-                //console.log (data.time + ' ' + data.price);
-            }
-        }
-
 
         renderChart (){
 
@@ -51,7 +39,8 @@ module Tickergrid
             // Draw with the x & y axis
             this.chart.beginPath();
             this.chart.setLineDash([1, 0]);
-            this.chart.strokeStyle = "#ffffff";
+            this.chart.lineWidth = 1;
+            this.chart.strokeStyle = "#afafaf";
             this.chart.moveTo(20, 190);
             this.chart.lineTo(540, 190);
             this.chart.lineTo(540, 40);
@@ -71,76 +60,50 @@ module Tickergrid
             var params = this.getHistoryParams (data.history);
 
             // The percentge we'll go above and below the max and min prices 
-            var percentage = 0.025;
+            var percentage = 0.0005;
 
-            // Write the price axis numbers
+            // Write the axis data
             var topPrice:number = Math.ceil (params.highestPrice + params.highestPrice * percentage); 
             var botPrice:number = Math.floor (params.lowestPrice - params.lowestPrice * percentage);
             var midPrice:number = botPrice + (topPrice - botPrice)/2;
 
             this.chart.font = "11px Arial";
-            this.chart.fillStyle ='white';
+            this.chart.fillStyle ="#afafaf";
             this.chart.fillText(topPrice,550,45);
-            this.chart.fillText(botPrice,550,195);
+            this.chart.fillText(botPrice,550,193);
             this.chart.fillText(midPrice,550,120);
 
-            //this.chart.fillText('now',520,210);
-            //this.chart.fillText('5secs',40,210);
+            this.chart.fillText('0s',533,210);
+            this.chart.fillText('10s',270,210);
+            this.chart.fillText('20s',15,210);
 
-            // Place points lon the chart
-            //data.history.reverse();
+            // Place points on the chart
             var x:number;
             var y:number;
-
             var points = data.history;
-            //console.log ('Oldest point');
-            var point = points[0];
-            
-            var timeSpan = params.highestTime - params.lowestTime;
-            var timeSinceStart = point.time - params.highestTime;
-            //console.log ('timeSpan> '+ timeSpan + ' timeSinceStart> '+timeSinceStart);
-
-            if (timeSinceStart == 0){
-                x = 540;
-            }else{
-                
-                //x = 520 * timeSinceStart/timeSpan;
-            }
-
-            y = 190*(topPrice - point.price)/(topPrice - botPrice);
-
-            this.drawPoint (x,y);
-            
-
-            /*
-            
-            // top 40, bottom 190, diff 150, middle 115
-            var x = 540;
-            var y = 40 + 150*(topPrice - h[0].price)/(topPrice - botPrice); 
+            var firstPoint = points[0];
             this.chart.beginPath();
-            this.chart.strokeStyle = "#fddb3b";
-            this.chart.setLineDash([1, 0]);
+            this.chart.strokeStyle = "#afafaf";
             this.chart.lineWidth = 2;
-            this.chart.moveTo(x, y);
-            for (var i = 0; i < h.length; i++) {
-                var x = x-25;
-
-                var y = 190*(topPrice - h[i].price)/(topPrice - botPrice); 
+            for (var i = 0; i < points.length; i++) {
+                var point = points[i];
+                x = 540 - (params.highestTime - point.time)/20000 * 540;
+                if (x < 20){ x = 20};
+                y = 190*(topPrice - point.price)/(topPrice - botPrice);
                 this.chart.lineTo (x, y);
+                this.drawPoint (x,y);
             }
-            
             this.chart.stroke();
-            */
         }
 
         drawPoint (x:number, y:number) {
 
             // Draws a point at the specified x & y coords
             this.chart.setLineDash([1, 0]);
-            this.chart.fillStyle="#397a5d";
-            this.chart.fillRect(x-3,y-3,6,6);
-            this.chart.strokeStyle = "#fddb3b";
-            this.chart.strokeRect(x-3,y-3,6,6);
+            this.chart.fillStyle="#fff";
+            this.chart.fillRect(x-2,y-2,4,4);
+            this.chart.strokeStyle = "#fff";
+            this.chart.strokeRect(x-2,y-2,4,4);
 
         }
 

@@ -29,14 +29,14 @@ module Tickergrid
             this.history = data.history;
 
             // Create the first hitory object
-            //var tickHistory = {price:this.price,time:this.lastTick};
-            //this.history.push (tickHistory);
+            var tickHistory = {price:this.price,time:this.lastTick};
+            this.history.push (tickHistory);
         }
 
         updateHistory (tickHistory:any){
             
             // keep a maximum of 10 ticks in the history
-            var maxHistory = 5;
+            var maxHistory = 10;
             this.history.push (tickHistory);
             if (this.history.length > maxHistory){
                 this.history.shift ();

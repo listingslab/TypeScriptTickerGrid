@@ -54,10 +54,9 @@ module Tickergrid
             // add a listener to the grid to change the chart to a new company
             tickergrid.addEventListener ("click", () => this.main.chart.switchChart (event['path'][1]['id']));
 
-
             // Set the current chart to the first company on the list
             this.main.chart.switchChart (companies[0].name);
-
+            
         }
 
         createCell (width:string, content:string){
