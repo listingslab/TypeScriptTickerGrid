@@ -13,16 +13,19 @@ The Model handles the loading, storage and parsing of the data. It's first job i
 
 The second part of the model's job is to provide an engine to process the deltas, update the Company objects with new data and then communicate those changes to the View to be shown in the UI.
 
-## 3. View Class
+## 3. Grid Class
 The view's job is to interact with the DOM as efficiently as possible using the Model's data. The approach I've taken is to create and render a table to an existing div on the page.
 
 When the Model emits a message to update a row, the view class creates a new 'tr' element and replaces the old row with the new element.
 
-## 4. CSS Animation
-
 Notification that an item has been updated via a visual flare in the UI is handled by <a href="css/style.css" target="_blank">CSS</a>, thus offloading animation logic to the browser itself, which it is efficient at.
 
 I wanted to try out the CSS3 @keyframes technique because I used to be a Flash Developer and was interested to discover more options for making a UI look and feel great.
+
+## 4. Chart Class
+This is a little experimental. The idea is that on every tick each company Object updates it's tick history. The chart then gets re-rendered on each tick
+
+
 
 ### Developed in TypeScript using Sublime.
 
