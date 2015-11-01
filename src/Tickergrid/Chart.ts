@@ -24,8 +24,46 @@ module Tickergrid
 
 
         renderChart (){
+
+            //console.log ('rendering');
+
+            // Clear the canvas
+            var canvas = <HTMLCanvasElement> document.getElementById('tickergrid__chart');
+            this.chart.clearRect(0, 0, canvas.width, canvas.height);
+            
             // Get Company object for currentChart
-            console.log ('Get Company object for ' + this.currentChart);
+            var data = this.main.model.getCompanyObject(this.currentChart);
+
+            // Write title to the chart
+            this.chart.font = "12px Arial";
+            this.chart.fillStyle ='white';
+            this.chart.fillText(data.companyName + ' (' + data.name + ')',20,30);
+
+            // Draw with the x & y axis
+            this.chart.beginPath();
+            this.chart.setLineDash([1, 0]);
+            this.chart.strokeStyle = "#ffffff";
+            this.chart.moveTo(40, 190);
+            this.chart.lineTo(540, 190);
+            this.chart.lineTo(540, 40);
+            this.chart.stroke();
+
+            // Draw the dashed mid line
+            this.chart.beginPath();
+            this.chart.setLineDash([5, 5]);
+            this.chart.lineWidth = 1;
+            this.chart.moveTo(40, 115);
+            this.chart.lineTo(540, 115);
+            this.chart.strokeStyle = "#afafaf";
+            this.chart.stroke();
+
+            // Chart the Company Object's history array
+            
+            for (var i = 0; i < data.history.length; i++) {
+                //console.log (data.history[i]);
+            }
+            //console.log ('______________');
+
         }        
 
 
@@ -33,38 +71,14 @@ module Tickergrid
         renderChart_old (){
             
 
-
-
-            var canvas = <HTMLCanvasElement> document.getElementById('tickergrid__chart');
-            
-            this.chart.clearRect(0, 0, canvas.width, canvas.height);
-            
-
             var chartTitle = {name:'GOOG', companyName:'Google Inc'};
             var chartData =[
                 {price:658.89, time:1446335973},
-                {price:659.21, time:1446335974},
-                {price:659.24, time:1446335975},
-                {price:659, time:1446335977},
-                {price:658.5, time:1446335978},
-                {price:657.69, time:1446335978},
-                {price:657.55, time:1446335980},
-                {price:660.1, time:1446335983},
-                {price:660.1, time:1446335987},
-                {price:657.4, time:1446335987},
-                {price:657.87, time:1446335994},
-                {price:657.93, time:1446335995},
-                {price:658.89, time:1446335997},
-                {price:659.21, time:1446335998},
                 {price:659.24, time:1446336000},
             ];
 
             // Render the chart to the canvas
             // Start with the title
-
-            this.chart.font = "12px Arial";
-            this.chart.fillStyle ='white';
-            this.chart.fillText(chartTitle.companyName + ' (' + chartTitle.name + ')',20,30);
 
             // find lowest and highest value of the price in the array
 
@@ -90,22 +104,7 @@ module Tickergrid
             this.chart.fillStyle ='white';
             this.chart.fillText(midPrice,550,120);
 
-            // Draw with the x & y axis
-            this.chart.beginPath();
-            this.chart.moveTo(40, 190);
-            this.chart.lineTo(540, 190);
-            this.chart.lineTo(540, 40);
-            this.chart.strokeStyle = "#ffffff";
-            this.chart.stroke();
 
-            // Draw the dashed mid line
-            this.chart.beginPath();
-            this.chart.setLineDash([5, 5]);
-            this.chart.lineWidth = 1;
-            this.chart.moveTo(40, 115);
-            this.chart.lineTo(540, 115);
-            this.chart.strokeStyle = "#afafaf";
-            this.chart.stroke();
 
             // Draw the actual line
             this.chart.beginPath();

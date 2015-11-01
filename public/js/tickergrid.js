@@ -12,8 +12,16 @@ var Tickergrid;
             this.lastTick = data.lastTick;
             this.lastTick = data.lastTickTime;
             this.history = data.history;
+            var tickHistory = { price: this.price, time: this.lastTick };
+            this.history.push(tickHistory);
         }
-        Company.prototype.updateHistory = function () {
+        Company.prototype.updateHistory = function (tickHistory) {
+            var maxHistory = 5;
+            this.history.push(tickHistory);
+            if (this.history.length > maxHistory) {
+                this.history.reverse();
+                this.history.pop();
+            }
         };
         return Company;
     })();
@@ -44,6 +52,7 @@ var Tickergrid;
             this.gridHeaders = lines[0].split(',');
             for (var i = 1; i < lines.length; i++) {
                 var line = lines[i].split(',');
+                var time = Math.round(+new Date() / 1000);
                 if (line[0] != '' && line[1] != '') {
                     var data = {
                         name: line[0],
@@ -53,8 +62,8 @@ var Tickergrid;
                         changePerc: line[4],
                         mktCap: line[5],
                         lastTick: '',
-                        lastTickTime: Math.round(+new Date() / 1000),
-                        history: []
+                        lastTickTime: time,
+                        history: [{ price: line[2], time: time }]
                     };
                     var company = new Tickergrid.Company(data);
                     this.companies.push(company);
@@ -81,6 +90,7 @@ var Tickergrid;
             for (var i = 0; i < this.companies.length; i++) {
                 var change = false;
                 var lastTick;
+                var lastTickTime = Math.round(+new Date() / 1000);
                 var deltaData = this.deltas[this.currentDelta].split(",");
                 var oldPrice = this.companies[i].price;
                 var newPrice = deltaData[2];
@@ -99,12 +109,14 @@ var Tickergrid;
                     this.companies[i].change = deltaData[3];
                     this.companies[i].changePerc = deltaData[4];
                     this.companies[i].lastTick = lastTick;
-                    this.companies[i].lastTickTime = Math.round(+new Date() / 1000);
-                    this.companies[i].updateHistory();
+                    this.companies[i].lastTickTime = lastTickTime;
                     this.main.grid.tickCompanyRow(this.companies[i]);
                 }
+                var tickHistory = { price: this.companies[i].price, time: lastTickTime };
+                this.companies[i].updateHistory(tickHistory);
                 this.currentDelta++;
             }
+            this.main.chart.renderChart();
             var wait = this.deltas[this.currentDelta];
             if (this.deltas[this.currentDelta + 1] == '') {
                 this.currentDelta = 0;
@@ -201,32 +213,36 @@ var Tickergrid;
             this.chart = canvas.getContext('2d');
         }
         Chart.prototype.renderChart = function () {
-            console.log('Get Company object for ' + this.currentChart);
-        };
-        Chart.prototype.renderChart_old = function () {
+            //console.log ('rendering');
             var canvas = document.getElementById('tickergrid__chart');
             this.chart.clearRect(0, 0, canvas.width, canvas.height);
+            var data = this.main.model.getCompanyObject(this.currentChart);
+            this.chart.font = "12px Arial";
+            this.chart.fillStyle = 'white';
+            this.chart.fillText(data.companyName + ' (' + data.name + ')', 20, 30);
+            this.chart.beginPath();
+            this.chart.setLineDash([1, 0]);
+            this.chart.strokeStyle = "#ffffff";
+            this.chart.moveTo(40, 190);
+            this.chart.lineTo(540, 190);
+            this.chart.lineTo(540, 40);
+            this.chart.stroke();
+            this.chart.beginPath();
+            this.chart.setLineDash([5, 5]);
+            this.chart.lineWidth = 1;
+            this.chart.moveTo(40, 115);
+            this.chart.lineTo(540, 115);
+            this.chart.strokeStyle = "#afafaf";
+            this.chart.stroke();
+            for (var i = 0; i < data.history.length; i++) {
+            }
+        };
+        Chart.prototype.renderChart_old = function () {
             var chartTitle = { name: 'GOOG', companyName: 'Google Inc' };
             var chartData = [
                 { price: 658.89, time: 1446335973 },
-                { price: 659.21, time: 1446335974 },
-                { price: 659.24, time: 1446335975 },
-                { price: 659, time: 1446335977 },
-                { price: 658.5, time: 1446335978 },
-                { price: 657.69, time: 1446335978 },
-                { price: 657.55, time: 1446335980 },
-                { price: 660.1, time: 1446335983 },
-                { price: 660.1, time: 1446335987 },
-                { price: 657.4, time: 1446335987 },
-                { price: 657.87, time: 1446335994 },
-                { price: 657.93, time: 1446335995 },
-                { price: 658.89, time: 1446335997 },
-                { price: 659.21, time: 1446335998 },
                 { price: 659.24, time: 1446336000 },
             ];
-            this.chart.font = "12px Arial";
-            this.chart.fillStyle = 'white';
-            this.chart.fillText(chartTitle.companyName + ' (' + chartTitle.name + ')', 20, 30);
             var params = this.getHistoryParams(chartData);
             var percentage = 0.25;
             var topPrice = Math.floor(params.highestPrice + (percentage / 100) * params.highestPrice);
@@ -241,19 +257,6 @@ var Tickergrid;
             this.chart.font = "11px Arial";
             this.chart.fillStyle = 'white';
             this.chart.fillText(midPrice, 550, 120);
-            this.chart.beginPath();
-            this.chart.moveTo(40, 190);
-            this.chart.lineTo(540, 190);
-            this.chart.lineTo(540, 40);
-            this.chart.strokeStyle = "#ffffff";
-            this.chart.stroke();
-            this.chart.beginPath();
-            this.chart.setLineDash([5, 5]);
-            this.chart.lineWidth = 1;
-            this.chart.moveTo(40, 115);
-            this.chart.lineTo(540, 115);
-            this.chart.strokeStyle = "#afafaf";
-            this.chart.stroke();
             this.chart.beginPath();
             this.chart.setLineDash([1, 0]);
             this.chart.lineWidth = 3;

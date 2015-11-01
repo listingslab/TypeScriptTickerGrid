@@ -47,6 +47,7 @@ module Tickergrid
 			// Loop through the rest of the lines and create a company Object for each
 			for (var i = 1; i < lines.length; i++) {
 				var line = lines[i].split(',');
+				var time = Math.round(+new Date()/1000);
 				if (line[0] != '' && line[1] != '') {
 					var data = {
 						name: line[0],
@@ -56,8 +57,8 @@ module Tickergrid
 						changePerc: line[4],
 						mktCap: line[5],
 						lastTick: '',
-						lastTickTime: Math.round(+new Date()/1000),
-						history: []
+						lastTickTime: time,
+						history: [{price:line[2], time:time}]
 					}
 					var company:ICompany = new Company (data);
 
@@ -104,6 +105,7 @@ module Tickergrid
 				// Make sure we haven't run out of deltas
 				var change:boolean = false;
 				var lastTick:string;
+				var lastTickTime:number = Math.round(+new Date()/1000);
 				var deltaData = this.deltas[this.currentDelta].split(",");
 				var oldPrice = this.companies[i].price;
 				var newPrice = deltaData[2];
@@ -127,10 +129,7 @@ module Tickergrid
 					this.companies[i].change = deltaData[3];
 					this.companies[i].changePerc = deltaData[4];
 					this.companies[i].lastTick = lastTick;
-					this.companies[i].lastTickTime = Math.round(+new Date()/1000);
-
-					// Update the company Object's history
-					this.companies[i].updateHistory();
+					this.companies[i].lastTickTime = lastTickTime;
 
 					// Propagate the change to the grid
 					this.main.grid.tickCompanyRow(this.companies[i]);
@@ -138,10 +137,17 @@ module Tickergrid
 
 				}
 
+				// Update the company Object's history
+				var tickHistory = {price:this.companies[i].price,time:lastTickTime};
+				this.companies[i].updateHistory(tickHistory);
+
 				// Keep track of where we are in the delta list
 				this.currentDelta++;
 			
 			}
+
+			// Update the company Object's history
+			this.main.chart.renderChart();
 				
 			// Get the time to wait before next update
 			var wait: number = this.deltas[this.currentDelta];
@@ -166,7 +172,7 @@ module Tickergrid
 
 	    getCompanyObject(name:string) {
 
-	    	// Loop through the next chunk of delta lines 
+	    	// Loop through company objects and return the requested one
 			for (var i = 0; i < this.companies.length; i++) {
 				if (this.companies[i].name == name){
 					return this.companies[i];
