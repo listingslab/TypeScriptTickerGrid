@@ -5,7 +5,7 @@ The internal module encapsulates the functionality, and prevents pollution of th
 
 Aside from the Main class, which is entry point to the application, TickerGrid comprises a View class, a Model Class and an interface called iCompany.
 
-These are all compiled into a single JavaScript file called tickergrid.js
+These are all compiled into a single JavaScript file called <a href="http://jqueryresume.com/js/tickergrid.js" target="_blank">tickergrid.js</a>
 
 ## 2. Model Class
 
