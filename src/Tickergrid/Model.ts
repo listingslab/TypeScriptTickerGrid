@@ -16,25 +16,26 @@ module Tickergrid
 
         constructor(main)
         {
-			this.main = main;
+        	this.main = main;
         	this.companies = [];
         	this.deltas = [];
-			this.gridHeaders = [];
-			this.currentDelta = 0;
+        	this.gridHeaders = [];
+        	this.currentDelta = 0;
 
-			// Initialise the model by loading the snapshot data
-			this.loadSnapshot();
+        	// Initialise the model by loading the snapshot data
+        	this.loadSnapshot();
         }
 
-        loadSnapshot() {
+		loadSnapshot() {
 
-        	// Loads the snapshot data via XMLHttpRequest.
-        	// Requires http protocol in Chrome and some other browsers
-	        var xhr = new XMLHttpRequest();
-	        xhr.open('GET', 'csv/snapshot.csv');
-	        xhr.onload = () => { this.parseSnapshot(xhr.responseText) };
-	        xhr.send(); 
-	    }
+			// Loads the snapshot data via XMLHttpRequest.
+			// Requires http protocol in Chrome and some other browsers
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'csv/snapshot.csv');
+			xhr.onload = () => { this.parseSnapshot(xhr.responseText) };
+			xhr.send();
+			
+		}
 
 		parseSnapshot(res) {
 
